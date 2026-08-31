@@ -1,26 +1,26 @@
 # MCP Studio ⚡️
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/alexandrmotologa/mcp-studio/main/assets/banner.png" alt="MCP Studio Banner" width="100%" onerror="this.style.display='none'" />
-</p>
-
-<p align="center">
   <strong>The All-in-One Desktop IDE & Visual Inspector for Model Context Protocol (MCP)</strong>
 </p>
 
 <p align="center">
-  <a href="https://github.com/alexandrmotologa/mcp-studio/releases/latest"><img src="https://img.shields.io/github/v/release/alexandrmotologa/mcp-studio?style=flat-square&color=6366f1" alt="Release"></a>
-  <a href="https://github.com/alexandrmotologa/mcp-studio/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Commercial%20%2F%20Community-indigo?style=flat-square" alt="License"></a>
-  <a href="https://mcp.mtlglabs.space"><img src="https://img.shields.io/badge/website-mcp.mtlglabs.space-cyan?style=flat-square" alt="Website"></a>
+  <a href="https://mtlglabs.space"><img src="https://img.shields.io/badge/status-Coming%20Soon%20%2F%20In%20Active%20Dev-amber?style=flat-square" alt="Status"></a>
+  <a href="https://mtlglabs.space"><img src="https://img.shields.io/badge/hub-mtlglabs.space-indigo?style=flat-square" alt="MTLG Labs"></a>
+  <a href="https://mtlg.site"><img src="https://img.shields.io/badge/founder-Alexandr%20Motologa-cyan?style=flat-square" alt="Founder"></a>
 </p>
+
+> [!NOTE]
+> 🚀 **MCP Studio is currently in active development.** 
+> For early access, inquiries, and updates, visit the official hub at **[mtlglabs.space](https://mtlglabs.space)** or get in touch via **[mtlg.site](https://mtlg.site)**.
 
 ---
 
 ## 🚀 Overview
 
-**MCP Studio** is the definitive developer workspace for building, inspecting, and testing [Model Context Protocol](https://modelcontextprotocol.io) servers. Think of it as **Postman for AI & MCP tools**.
+**MCP Studio** is the definitive desktop developer workspace for building, inspecting, and testing [Model Context Protocol](https://modelcontextprotocol.io) servers. Think of it as **Postman for AI & MCP tools**.
 
-Whether you are building custom database connectors, internal company tools, or SaaS integrations for **Claude Desktop**, **Cursor IDE**, or **Windsurf**, MCP Studio eliminates terminal debugging guesswork with an intuitive visual GUI.
+Whether you are building custom database connectors, internal company tools, or integrations for **Claude Desktop**, **Cursor IDE**, or **Windsurf**, MCP Studio eliminates terminal debugging guesswork with an intuitive visual GUI.
 
 ---
 
@@ -36,41 +36,26 @@ Whether you are building custom database connectors, internal company tools, or 
 
 ---
 
-## 📥 Download
+## 📥 Download (Coming Soon)
 
-Pre-built binaries are available for Windows, macOS, and Linux on the **[Releases Page](https://github.com/alexandrmotologa/mcp-studio/releases)**:
+Pre-built binaries will be released for Windows, macOS, and Linux:
 
-| Platform | Download | Format |
-| :--- | :--- | :--- |
-| **Windows** | [Download .exe](https://github.com/alexandrmotologa/mcp-studio/releases/latest) | NSIS Installer (x64) |
-| **macOS** | [Download .dmg](https://github.com/alexandrmotologa/mcp-studio/releases/latest) | Apple Silicon & Intel |
-| **Linux** | [Download .AppImage](https://github.com/alexandrmotologa/mcp-studio/releases/latest) | AppImage / Deb |
-
----
-
-## 💡 Community vs. Pro
-
-| Feature | Community (Free) | Pro License ($49 One-Time) |
-| :--- | :---: | :---: |
-| Local `stdio` & `sse` Connections | ✅ | ✅ |
-| JSON Schema Form Runner | ✅ | ✅ |
-| Resource & Prompt Inspection | ✅ | ✅ |
-| JSON-RPC Traffic Inspector | ✅ | ✅ |
-| Multi-Server Tabs | 1 Active | **Unlimited** |
-| AI Multi-LLM Agent Simulator | — | **Included** |
-| 1-Click Cursor & Claude Export | — | **Included** |
-| Response Mocking & Fixtures | — | **Included** |
-| Lifetime Desktop License | — | **Included** |
+| Platform | Status | Format |
+| :--- | :---: | :--- |
+| **Windows** | `In Development` | NSIS Installer (x64) |
+| **macOS** | `In Development` | Apple Silicon & Intel (.dmg) |
+| **Linux** | `In Development` | AppImage / Deb |
 
 ---
 
-## 💬 Community & Feedback
+## 📬 Contact & Early Access
 
-- 🐛 **Report a Bug / Request a Feature:** [Open an Issue](https://github.com/alexandrmotologa/mcp-studio/issues)
-- 🌐 **Official Website:** [mcp.mtlglabs.space](https://mcp.mtlglabs.space)
+* 🌐 **MTLG Labs Hub:** [mtlglabs.space](https://mtlglabs.space)
+* 👨‍💻 **Founder Portfolio & Contact:** [mtlg.site](https://mtlg.site)
+* 🐛 **Feedback & Feature Requests:** [Open a GitHub Issue](https://github.com/alexandrmotologa/mcp-studio/issues)
 
 ---
 
 <p align="center">
-  Crafted with ❤️ by <a href="https://github.com/alexandrmotologa">Alexandr Motologa</a> @ <a href="https://mtlglabs.space">MTLG Labs</a>
+  Crafted with ❤️ by <a href="https://mtlg.site">Alexandr Motologa</a> @ <a href="https://mtlglabs.space">MTLG Labs</a>
 </p>
