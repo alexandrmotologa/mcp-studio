@@ -11,7 +11,7 @@
 <p align="center">
   <a href="https://github.com/alexandrmotologa/mcp-studio/releases/latest"><img src="https://img.shields.io/github/v/release/alexandrmotologa/mcp-studio?style=flat-square&color=6366f1" alt="Release"></a>
   <a href="https://github.com/alexandrmotologa/mcp-studio/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Commercial%20%2F%20Community-indigo?style=flat-square" alt="License"></a>
-  <a href="https://mcpstudio.dev"><img src="https://img.shields.io/badge/website-mcpstudio.dev-cyan?style=flat-square" alt="Website"></a>
+  <a href="https://mcp.mtlglabs.space"><img src="https://img.shields.io/badge/website-mcp.mtlglabs.space-cyan?style=flat-square" alt="Website"></a>
 </p>
 
 ---
@@ -67,10 +67,10 @@ Pre-built binaries are available for Windows, macOS, and Linux on the **[Release
 ## 💬 Community & Feedback
 
 - 🐛 **Report a Bug / Request a Feature:** [Open an Issue](https://github.com/alexandrmotologa/mcp-studio/issues)
-- 🌐 **Official Website:** [mcpstudio.dev](https://mcpstudio.dev)
+- 🌐 **Official Website:** [mcp.mtlglabs.space](https://mcp.mtlglabs.space)
 
 ---
 
 <p align="center">
-  Crafted by <a href="https://github.com/alexandrmotologa">Alexandr Motologa</a>
+  Crafted with ❤️ by <a href="https://github.com/alexandrmotologa">Alexandr Motologa</a> @ <a href="https://mtlglabs.space">MTLG Labs</a>
 </p>
