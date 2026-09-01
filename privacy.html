@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — MCP Studio</title>
+  
+  <!-- SEO Primary Meta Tags -->
+  <meta name="title" content="Privacy Policy — MCP Studio">
+  <meta name="description" content="Privacy Policy for MCP Studio. Learn how your data remains 100% private, local-first, and secure on your desktop.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://mcp.mtlglabs.space/privacy">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect width='20' height='8' x='2' y='2' rx='2.5' fill='%236366f1' fill-opacity='0.3'/><rect width='20' height='8' x='2' y='14' rx='2.5' fill='%2306b6d4' fill-opacity='0.3'/><circle cx='6' cy='6' r='1.2' fill='%23818cf8'/><circle cx='10' cy='6' r='1.2' fill='%23818cf8'/><circle cx='6' cy='18' r='1.2' fill='%2322d3ee'/><circle cx='10' cy='18' r='1.2' fill='%2322d3ee'/><path d='M18 6h-4M18 18h-4' stroke='%23a5b4fc'/></svg>">
+
+  <!-- Google Fonts & Tailwind CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            studio: {
+              950: '#06070a',
+              900: '#0b0d14',
+              850: '#111420',
+              800: '#181d2d',
+              700: '#262d45',
+              border: '#20273d',
+              accent: '#6366f1'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #06070a;
+      color: #f8fafc;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+    .glow-indigo {
+      box-shadow: 0 0 50px -10px rgba(99, 102, 241, 0.25);
+    }
+    .grid-pattern {
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+  </style>
+</head>
+<body class="bg-studio-950 text-slate-100 selection:bg-indigo-500 selection:text-white relative">
+
+  <!-- Background Decor -->
+  <div class="fixed inset-0 pointer-events-none grid-pattern opacity-60 z-0"></div>
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[350px] bg-gradient-to-b from-indigo-600/15 via-purple-600/10 to-transparent blur-3xl pointer-events-none z-0"></div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-studio-950/80 border-b border-studio-border/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-cyan-500 p-0.5 shadow-lg shadow-indigo-500/25 group-hover:scale-105 transition-transform flex-shrink-0">
+          <div class="w-full h-full bg-studio-950 rounded-[10px] flex items-center justify-center p-1.5">
+            <svg class="w-full h-full text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="8" x="2" y="2" rx="2.5" fill="rgba(99,102,241,0.25)"></rect>
+              <rect width="20" height="8" x="2" y="14" rx="2.5" fill="rgba(6,182,212,0.25)"></rect>
+              <circle cx="6" cy="6" r="1.2" fill="#818cf8"></circle>
+              <circle cx="10" cy="6" r="1.2" fill="#818cf8"></circle>
+              <circle cx="6" cy="18" r="1.2" fill="#22d3ee"></circle>
+              <circle cx="10" cy="18" r="1.2" fill="#22d3ee"></circle>
+              <path d="M18 6h-4M18 18h-4" stroke="#a5b4fc"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="font-extrabold text-base tracking-tight text-white">MCP Studio</span>
+          <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-400 border border-indigo-500/30">v2.0.0</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-xs font-semibold text-slate-300">
+        <a href="index.html#features" class="hover:text-indigo-400 transition-colors">Features</a>
+        <a href="pricing.html" class="hover:text-indigo-400 transition-colors">Pricing</a>
+        <a href="terms.html" class="hover:text-indigo-400 transition-colors">Terms</a>
+        <a href="privacy.html" class="text-indigo-400">Privacy Policy</a>
+        <a href="refunds.html" class="hover:text-indigo-400 transition-colors">Refunds</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="pricing.html" class="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow transition-all">
+          Get Pro License
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Content Container -->
+  <main class="py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="mb-10 pb-6 border-b border-studio-border">
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white">Privacy Policy</h1>
+      <p class="text-xs text-slate-400 mt-2 font-mono">Last Updated: September 1, 2026</p>
+    </div>
+
+    <div class="space-y-8 text-xs text-slate-300 leading-relaxed font-sans">
+      <section class="space-y-3">
+        <h2 class="text-base font-bold text-white">1. Our Core Philosophy: 100% Local-First &amp; Zero Tracking</h2>
+        <p>
+          At <strong>MTLG Labs</strong>, we respect your privacy. <strong>MCP Studio</strong> is built from the ground up as a <strong>local-first desktop software application</strong>.
+        </p>
+        <p class="p-3.5 rounded-xl bg-indigo-950/40 border border-indigo-500/30 text-indigo-200">
+          🔒 <strong>We do not collect, store, or transmit your code, tool definitions, tool arguments, MCP traffic payloads, or server schemas to any remote server. Everything executes exclusively on your machine.</strong>
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-base font-bold text-white">2. Information We Process &amp; How It Is Handled</h2>
+        <div class="space-y-3">
+          <div>
+            <h3 class="font-bold text-white text-xs mb-1">A. Purchase &amp; Order Data (Paddle.com)</h3>
+            <p>
+              When you purchase a Pro License, transaction and payment data (such as your name, billing address, email address, payment method, and country) are processed directly and securely by our Merchant of Record, <strong>Paddle.com Inc.</strong>. MTLG Labs never stores or has access to your full credit card details or bank credentials. Paddle provides us only with order metadata (your email, assigned license key, and order status) required to validate your license.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-white text-xs mb-1">B. License Activation &amp; Offline Grace</h3>
+            <p>
+              When you activate a Pro License key in the desktop app, the key is verified cryptographically. License checks support full offline grace periods, allowing you to use MCP Studio completely disconnected from the internet.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-white text-xs mb-1">C. AI Model API Keys &amp; Configuration Storage</h3>
+            <p>
+              Any API keys you input for cloud LLM providers (e.g. OpenAI, Anthropic, Gemini) are encrypted and stored locally in your operating system's credential vault. They are only transmitted directly from your computer to the respective provider's API endpoints when you run simulations.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-white text-xs mb-1">D. Application Telemetry</h3>
+            <p>
+              MCP Studio contains <strong>zero tracking pixels, zero analyticsSDKs, and zero telemetry</strong>. We do not track your clicks, session durations, or tool usage statistics.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-base font-bold text-white">3. Third-Party Services &amp; Links</h2>
+        <p>
+          MCP Studio allows developers to connect to third-party endpoints, including local stdio processes, remote SSE endpoints, and AI provider APIs. When you configure external integrations, their respective privacy policies and terms govern those data transfers.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-base font-bold text-white">4. GDPR, CCPA &amp; International Compliance</h2>
+        <p>
+          Because we do not store personal operational data, you retain complete sovereignty over your data. If you wish to inspect or request deletion of your purchase email record from our license fulfillment ledger, you may contact us at any time.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-base font-bold text-white">5. Security</h2>
+        <p>
+          We implement rigorous security standards across all our build pipelines and releases, including code signing, hash verification, and dependency vulnerability scanning.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-base font-bold text-white">6. Contact Our Data Protection Officer</h2>
+        <p>
+          For privacy inquiries, data deletion requests, or questions regarding this policy, please reach out to:
+        </p>
+        <div class="p-4 rounded-xl bg-studio-900 border border-studio-border text-slate-300 font-mono text-[11px] space-y-1">
+          <div><strong>Publisher:</strong> MTLG Labs / Alexandr Motologa</div>
+          <div><strong>Website:</strong> <a href="https://mtlglabs.space" class="text-indigo-400 hover:underline">https://mtlglabs.space</a></div>
+          <div><strong>Privacy Contact:</strong> <a href="mailto:alexander@mtlglabs.space" class="text-indigo-400 hover:underline">alexander@mtlglabs.space</a></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-studio-border bg-studio-950 py-12 relative z-10 text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 via-purple-500 to-cyan-500 p-0.5 shadow-md flex-shrink-0">
+          <div class="w-full h-full bg-studio-950 rounded-[6px] flex items-center justify-center p-1">
+            <svg class="w-full h-full text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="8" x="2" y="2" rx="2.5" fill="rgba(99,102,241,0.25)"></rect>
+              <rect width="20" height="8" x="2" y="14" rx="2.5" fill="rgba(6,182,212,0.25)"></rect>
+              <circle cx="6" cy="6" r="1.2" fill="#818cf8"></circle>
+              <circle cx="10" cy="6" r="1.2" fill="#818cf8"></circle>
+              <circle cx="6" cy="18" r="1.2" fill="#22d3ee"></circle>
+              <circle cx="10" cy="18" r="1.2" fill="#22d3ee"></circle>
+              <path d="M18 6h-4M18 18h-4" stroke="#a5b4fc"></path>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div class="font-bold text-white">MCP Studio</div>
+          <div class="text-[11px] text-slate-500">© 2026 Alexandr Motologa &amp; MTLG Labs. All rights reserved.</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-6 flex-wrap font-medium">
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+        <a href="pricing.html" class="hover:text-white transition-colors">Pricing</a>
+        <a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a>
+        <a href="privacy.html" class="text-white">Privacy Policy</a>
+        <a href="refunds.html" class="hover:text-white transition-colors">Refund Policy</a>
+        <a href="mailto:alexander@mtlglabs.space" class="hover:text-white transition-colors">Contact Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
