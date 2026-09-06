@@ -6,7 +6,7 @@
 
 ### The Ultimate Desktop IDE, Inspector & Testing Platform for Model Context Protocol (MCP)
 
-[![Release](https://img.shields.io/badge/release-v2.0.4-indigo.svg)](https://mcp.mtlglabs.space)
+[![Release](https://img.shields.io/badge/release-v2.0.5-indigo.svg)](https://mcp.mtlglabs.space)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 [![Electron](https://img.shields.io/badge/Electron-v34.2.0-47848F.svg?logo=electron&logoColor=white)](https://electronjs.org)
 [![React](https://img.shields.io/badge/React-v19.0.0-61DAFB.svg?logo=react&logoColor=black)](https://react.dev)
@@ -49,7 +49,7 @@ MCP Studio follows an **Open Core** architecture:
 
 ---
 
-## ⚡️ Complete Feature Highlights (v2.0.4)
+## ⚡️ Complete Feature Highlights (v2.0.5)
 
 ### 1. 🔍 Live Tool Inspection & Smart Mocking
 * **Dynamic Form Generator:** Automatically analyzes JSON Schema property definitions into interactive input forms with field validation and `Ctrl+Enter` immediate execution.
