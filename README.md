@@ -6,7 +6,7 @@
 
 ### The Ultimate Desktop IDE, Inspector & Testing Platform for Model Context Protocol (MCP)
 
-[![Release](https://img.shields.io/badge/release-v2.0.7-indigo.svg)](https://mcp.mtlglabs.space)
+[![Release](https://img.shields.io/badge/release-v2.0.8-indigo.svg)](https://mcp.mtlglabs.space)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 [![Electron](https://img.shields.io/badge/Electron-v34.2.0-47848F.svg?logo=electron&logoColor=white)](https://electronjs.org)
 [![React](https://img.shields.io/badge/React-v19.0.0-61DAFB.svg?logo=react&logoColor=black)](https://react.dev)
@@ -49,7 +49,7 @@ MCP Studio follows an **Open Core** architecture:
 
 ---
 
-## ⚡️ Complete Feature Highlights (v2.0.7)
+## ⚡️ Complete Feature Highlights (v2.0.8)
 
 ### 1. 🔍 Live Tool Inspection & Smart Mocking
 * **Dynamic Form Generator:** Automatically analyzes JSON Schema property definitions into interactive input forms with field validation and `Ctrl+Enter` immediate execution.
@@ -68,8 +68,9 @@ MCP Studio follows an **Open Core** architecture:
 * **Inline API Key Vault Configuration:** Securely saves Anthropic, OpenAI, or Google AI keys on initial launch.
 * **Replay Anytime:** Re-triggerable directly from **Settings > About > Welcome Tour** or Header menu.
 
-### 3. 🖥️ Guided NSIS Windows Installer
-* **Desktop Shortcut Preference:** Interactive checkbox during installation to choose whether to create desktop shortcut (`[x] Create a desktop shortcut`, checked by default).
+### 3. 🖥️ Reliable Silent One-Click Setup (NSIS)
+* **Battle-Tested Fast Setup:** Installs in 2 seconds without UAC elevation roadblocks or prompt fatigue.
+* **Automatic Desktop & Start Menu Shortcuts:** Automatically generates launch shortcuts and opens the app immediately.
 * **Smooth Squircle Branding:** Polished app icon geometry with transparent outer alpha for clean Windows taskbar & desktop appearance.
 
 ### 4. 📊 Protocol Telemetry & Analytics Dashboard
