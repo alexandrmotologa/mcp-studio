@@ -6,7 +6,7 @@
 
 ### The Ultimate Desktop IDE, Inspector & Testing Platform for Model Context Protocol (MCP)
 
-[![Release](https://img.shields.io/badge/release-v2.0.6-indigo.svg)](https://mcp.mtlglabs.space)
+[![Release](https://img.shields.io/badge/release-v2.0.7-indigo.svg)](https://mcp.mtlglabs.space)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 [![Electron](https://img.shields.io/badge/Electron-v34.2.0-47848F.svg?logo=electron&logoColor=white)](https://electronjs.org)
 [![React](https://img.shields.io/badge/React-v19.0.0-61DAFB.svg?logo=react&logoColor=black)](https://react.dev)
@@ -49,7 +49,7 @@ MCP Studio follows an **Open Core** architecture:
 
 ---
 
-## ⚡️ Complete Feature Highlights (v2.0.6)
+## ⚡️ Complete Feature Highlights (v2.0.7)
 
 ### 1. 🔍 Live Tool Inspection & Smart Mocking
 * **Dynamic Form Generator:** Automatically analyzes JSON Schema property definitions into interactive input forms with field validation and `Ctrl+Enter` immediate execution.
@@ -62,13 +62,23 @@ MCP Studio follows an **Open Core** architecture:
 * **Client Code Snippets Generator:** Generates copy-pasteable client execution code in **Python (`mcp.ClientSession`)**, **TypeScript**, **cURL (JSON-RPC 2.0)**, **Go (`mcp-go`)**, and **Rust (`mcp-sdk-rs`)**.
 * **Live Process Console Drawer:** Real-time terminal capturing `stdout` and `stderr` stream output from child processes with hot-restart capabilities.
 
-### 2. 📊 Protocol Telemetry & Analytics Dashboard
+### 2. 🚀 First-Run Luxury Onboarding & Guided Setup
+* **Interactive 4-Step Welcome Guide:** Introduces newcomers to MCP concepts, server hubs, and developer superpowers.
+* **Live Local Ollama Health Ping:** Instant connection detection on `127.0.0.1:11434` with guided model advice.
+* **Inline API Key Vault Configuration:** Securely saves Anthropic, OpenAI, or Google AI keys on initial launch.
+* **Replay Anytime:** Re-triggerable directly from **Settings > About > Welcome Tour** or Header menu.
+
+### 3. 🖥️ Guided NSIS Windows Installer
+* **Desktop Shortcut Preference:** Interactive checkbox during installation to choose whether to create desktop shortcut (`[x] Create a desktop shortcut`, checked by default).
+* **Smooth Squircle Branding:** Polished app icon geometry with transparent outer alpha for clean Windows taskbar & desktop appearance.
+
+### 4. 📊 Protocol Telemetry & Analytics Dashboard
 * **Real-Time Latency Percentiles:** Visual bar charts tracking live response latency (p50, p95, p99).
 * **Reliability & Health Score:** Live percentage tracking error rates and failed RPC calls.
 * **Token Footprint Estimator:** Estimates prompt tokens, schema overhead, and session token counts.
 * **Live JSON-RPC Traffic Stream:** Real-time packet inspector with payload search, method filters, and 1-click replay.
 
-### 3. 🎨 Design, Ergonomics & Themes
+### 5. 🎨 Design, Ergonomics & Themes
 * **Modern 3-Zone Linear-Style Header:** Clean brand identity, omnibar search, core workspace tabs, and a compact 4-anchor control deck.
 * **7 Handcrafted Themes:**
   * 🌌 **Cyberpunk Indigo** (Default Navy Dark)
@@ -90,7 +100,7 @@ MCP Studio follows an **Open Core** architecture:
 * **Lead Architect:** [Alexandr Motologa](https://mtlg.site) ([LinkedIn](https://linkedin.com/in/alexandr-motologa) • [GitHub](https://github.com/alexandrmotologa))
 * **Organization:** [MTLG Labs](https://mtlglabs.space)
 * **Official Website:** [https://mcp.mtlglabs.space](https://mcp.mtlglabs.space)
-* **Support & Contact:** `alexander@mtlglabs.space`
+* **Support & Contact:** `support@mtlglabs.space`
 
 ---
 
