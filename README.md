@@ -6,7 +6,7 @@
 
 ### The Ultimate Desktop IDE, Inspector & Testing Platform for Model Context Protocol (MCP)
 
-[![Release](https://img.shields.io/badge/release-v2.1.3-indigo.svg)](https://github.com/alexandrmotologa/mcp-studio/releases)
+[![Release](https://img.shields.io/badge/release-v2.1.4-indigo.svg)](https://github.com/alexandrmotologa/mcp-studio/releases)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 [![Tests](https://img.shields.io/badge/tests-48%20passing%20(9%20suites)-emerald.svg)]()
 [![Electron](https://img.shields.io/badge/Electron-v34.2.0-47848F.svg?logo=electron&logoColor=white)](https://electronjs.org)
