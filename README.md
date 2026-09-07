@@ -8,14 +8,14 @@
 
 [![Release](https://img.shields.io/badge/release-v2.1.6-indigo.svg)](https://github.com/alexandrmotologa/mcp-studio/releases)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
-[![Tests](https://img.shields.io/badge/tests-50%20passing%20(10%20suites)-emerald.svg)]()
+[![Tests](https://img.shields.io/badge/tests-50%20passing%20(9%20suites)-emerald.svg)]()
 [![Electron](https://img.shields.io/badge/Electron-v34.2.0-47848F.svg?logo=electron&logoColor=white)](https://electronjs.org)
 [![React](https://img.shields.io/badge/React-v19.0.0-61DAFB.svg?logo=react&logoColor=black)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7.3-3178C6.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![MCP SDK](https://img.shields.io/badge/%40modelcontextprotocol%2Fsdk-v1.6.0-black.svg)](https://modelcontextprotocol.io)
 [![Architecture](https://img.shields.io/badge/Architecture-Open%20Core-blueviolet.svg)](https://mcp.mtlglabs.space)
 
-[🌐 Official Website](https://mcp.mtlglabs.space) • [🏢 MTLG Labs](https://mtlglabs.space) • [👨‍💻 Author Portfolio](https://mtlg.site) • [📥 Official Releases](https://github.com/alexandrmotologa/mcp-studio/releases) • [👔 LinkedIn](https://linkedin.com/in/alexandr-motologa)
+[🌐 Official Website](https://mcp.mtlglabs.space) • [🏢 MTLG Labs](https://mtlglabs.space) • [📜 Changelog](CHANGELOG.md) • [📥 Official Releases](https://github.com/alexandrmotologa/mcp-studio/releases) • [👨‍💻 Author Portfolio](https://mtlg.site) • [👔 LinkedIn](https://linkedin.com/in/alexandr-motologa)
 
 <br/>
 
@@ -154,11 +154,15 @@ MCP Studio follows an **Open Core** architecture:
   * **15 Developer Power Tools:** Automated assertion test suites, concurrency & latency benchmarking, security sandbox auditor, in-memory mock MCP server engine, OpenAPI converter, Docker packager, remote ngrok tunnel bridge, session recorder, and workflow builder.
   * *Learn more at [https://mcp.mtlglabs.space](https://mcp.mtlglabs.space)*.
 
----
+## ⚡️ Complete Feature Highlights (v2.1.6)
 
-## ⚡️ Complete Feature Highlights (v2.1.3)
+### 1. 🛡️ Real-Time Remote License Sync & Universal Guard (New in v2.1.6)
+* **Real-Time Remote Demotion:** Low-impact 5-minute background heartbeat automatically checks `sync.mtlglabs.space`. Remotely revoked or refunded licenses immediately revert to Community Edition without requiring application restart.
+* **Universal Pre-Checkout Guard:** Interactive modal requires a verified email address before opening Paddle checkout, preventing orphaned transactions and locking the buyer's email in the checkout overlay.
+* **Self-Service Key Retrieval Portal:** Instant multi-key retrieval portal allowing customers to look up and restore all active license keys by email.
+* **Automatic Refund Deactivation:** Instant revocation triggered via Paddle adjustments and refund events.
 
-### 1. 🔍 Live Tool Inspection & Smart Mocking
+### 2. 🔍 Live Tool Inspection & Smart Mocking
 * **Dynamic Form Generator:** Automatically analyzes JSON Schema property definitions into interactive input forms with field validation and `Ctrl+Enter` immediate execution.
 * **🎲 Smart Mock Data Auto-Filler:** Intelligent Faker engine analyzing parameter keywords (`email`, `sql`, `uuid`, `path`, `timestamp`, `name`, `limit`, etc.) to auto-populate forms in 1 click.
 * **Multi-View Response Visualizer:**
