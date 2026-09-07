@@ -177,7 +177,7 @@
         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
         <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
       </span>
-      <span>v2.1.3 Enterprise Release</span>
+      <span>v2.1.2 Enterprise Release</span>
       <span class="text-slate-500">•</span>
       <span class="text-indigo-400">Postman for Model Context Protocol</span>
     </div>
@@ -229,7 +229,7 @@
           <div class="w-3 h-3 rounded-full bg-rose-500/80"></div>
           <div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
           <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
-          <span class="ml-2 font-mono text-[11px] text-slate-400 font-semibold">MCP Studio v2.1.3 — Enterprise Protocol IDE &amp; Inspector</span>
+          <span class="ml-2 font-mono text-[11px] text-slate-400 font-semibold">MCP Studio v2.1.2 — Enterprise Protocol IDE &amp; Inspector</span>
         </div>
         <div class="flex items-center gap-3">
           <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">Ollama local: connected (llama3:8b)</span>
@@ -731,7 +731,18 @@
           </div>
         </div>
 
-        <div class="mt-8 space-y-2.5">
+        <div class="mt-8 space-y-3">
+          <!-- Customer Email Pre-fill -->
+          <div>
+            <label for="checkoutEmailInput" class="block text-[11px] font-semibold text-slate-300 mb-1.5 text-left">
+              Your Activation Email (license key bound to this address):
+            </label>
+            <div class="relative">
+              <i data-lucide="mail" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+              <input type="email" id="checkoutEmailInput" placeholder="name@company.com" class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-studio-950 border border-studio-border text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-indigo-500 transition-colors" />
+            </div>
+          </div>
+
           <!-- Buy Pro Button (Paddle Trigger) -->
           <button onclick="openPaddleCheckout()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white text-sm font-bold shadow-xl shadow-indigo-600/40 flex items-center justify-center gap-2 transition-all cursor-pointer">
             <i data-lucide="zap" class="w-4 h-4 text-amber-300"></i>
@@ -743,7 +754,7 @@
           <div class="p-3 rounded-xl bg-indigo-950/40 border border-indigo-500/30 flex items-start gap-2.5 text-left">
             <i data-lucide="info" class="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5"></i>
             <p class="text-[11px] text-slate-300 leading-relaxed">
-              <strong class="text-white font-semibold">Important Notice:</strong> Please use the email address during checkout that you want to bind your license to. The license key is cryptographically tied to this email and you must enter the exact same email inside the app to activate Pro.
+              <strong class="text-white font-semibold">Important Notice:</strong> Your license key is cryptographically tied to the email above and will be emailed immediately upon checkout. You must enter this exact email inside MCP Studio desktop to activate Pro.
             </p>
           </div>
         </div>
@@ -914,12 +925,16 @@
       }
     }
 
-    function openPaddleCheckout() {
+    function openPaddleCheckout(initialEmail) {
       if (!window.Paddle || !paddleConfig || !paddleConfig.token) {
         window.location.href = 'mailto:support@mtlglabs.space?subject=MCP%20Studio%20Pro%20Early%20Bird%20License&body=Hi%20Alexandr,%20I%20would%20like%20to%20purchase%20an%20Early%20Bird%20Lifetime%20License%20for%20MCP%20Studio%20Pro%20($24.99).';
         return;
       }
-      Paddle.Checkout.open({
+
+      const emailInput = document.getElementById('checkoutEmailInput');
+      const email = (typeof initialEmail === 'string' && initialEmail) || (emailInput ? emailInput.value.trim() : '');
+
+      const checkoutPayload = {
         items: [
           {
             priceId: paddleConfig.priceId,
@@ -931,11 +946,24 @@
           theme: 'dark',
           locale: 'en'
         }
-      });
+      };
+
+      if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        checkoutPayload.customer = { email };
+        checkoutPayload.customData = { email };
+      }
+
+      Paddle.Checkout.open(checkoutPayload);
     }
 
     async function handlePaddleCheckoutSuccess(eventData) {
-      const email = eventData?.data?.customer?.email || eventData?.data?.user?.email || '';
+      const emailInput = document.getElementById('checkoutEmailInput');
+      const fallbackEmail = emailInput ? emailInput.value.trim() : '';
+      const email =
+        eventData?.data?.customer?.email ||
+        eventData?.data?.user?.email ||
+        eventData?.data?.custom_data?.email ||
+        fallbackEmail;
       const txId = eventData?.data?.transaction_id || eventData?.data?.id || '';
 
       document.getElementById('customerEmailDisplay').textContent = email || 'Processing...';
@@ -945,7 +973,7 @@
       modal.classList.remove('hidden');
       lucide.createIcons();
 
-      if (email) {
+      if (email && txId) {
         try {
           const res = await fetch('/api/claim-license', {
             method: 'POST',
@@ -963,7 +991,7 @@
         }
       }
 
-      document.getElementById('licenseKeyText').textContent = 'Check your email: ' + email;
+      document.getElementById('licenseKeyText').textContent = 'Check your email: ' + (email || 'for your license key');
     }
 
     function closeLicenseModal() {
