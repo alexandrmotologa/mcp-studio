@@ -98,7 +98,7 @@
       <div class="flex items-center gap-4 text-xs font-semibold text-slate-300">
         <a href="index.html" class="hover:text-indigo-400 transition-colors">Overview</a>
         <a href="index.html#features" class="hover:text-indigo-400 transition-colors">Features</a>
-        <a href="https://github.com/alexandrmotologa/mcp-studio" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">GitHub</a>
+        <a href="https://github.com/alexandrmotologa/mcp-studio-core" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">GitHub</a>
       </div>
     </div>
   </header>
@@ -244,6 +244,17 @@
         </div>
 
         <div class="mt-8 space-y-2.5">
+          <!-- Email Pre-Fill Input -->
+          <div class="space-y-1.5 text-left">
+            <label for="checkoutEmailInput" class="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+              Activation &amp; License Email
+            </label>
+            <div class="relative">
+              <i data-lucide="mail" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+              <input type="email" id="checkoutEmailInput" placeholder="name@company.com" class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-studio-950 border border-studio-border text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-indigo-500 transition-colors" />
+            </div>
+          </div>
+
           <!-- Buy Pro Button (Paddle Trigger) -->
           <button onclick="openPaddleCheckout()" class="w-full py-4 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white text-sm font-bold shadow-xl shadow-indigo-600/40 flex items-center justify-center gap-2 transition-all cursor-pointer">
             <i data-lucide="zap" class="w-4 h-4 text-amber-300"></i>
@@ -255,8 +266,16 @@
           <div class="p-3 rounded-xl bg-indigo-950/40 border border-indigo-500/30 flex items-start gap-2.5 text-left">
             <i data-lucide="info" class="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5"></i>
             <p class="text-[11px] text-slate-300 leading-relaxed">
-              <strong class="text-white font-semibold">Important Notice:</strong> Please use the email address during checkout that you want to bind your license to. The license key is cryptographically tied to this email and you must enter the exact same email inside the app to activate Pro.
+              <strong class="text-white font-semibold">Important Notice:</strong> Your license key is cryptographically tied to the email above and will be emailed immediately upon checkout. You must enter this exact email inside MCP Studio desktop to activate Pro.
             </p>
+          </div>
+
+          <!-- Retrieve Keys Link -->
+          <div class="text-center pt-2">
+            <button onclick="openRetrieveModal()" class="text-xs text-indigo-400 hover:text-indigo-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer">
+              <i data-lucide="key" class="w-3.5 h-3.5"></i>
+              <span>Already purchased? Retrieve all your license keys &rarr;</span>
+            </button>
           </div>
         </div>
       </div>
@@ -452,6 +471,51 @@
     </div>
   </div>
 
+  <!-- License Key Retrieval Modal -->
+  <div id="retrieveModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="bg-studio-900 border border-studio-border rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-5 animate-in fade-in zoom-in duration-200">
+      <div class="flex items-center justify-between border-b border-studio-border pb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
+            <i data-lucide="key" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-extrabold text-white">Retrieve Your License Keys</h3>
+            <p class="text-xs text-slate-400">Lost your key or purchased multiple seats?</p>
+          </div>
+        </div>
+        <button onclick="closeRetrieveModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-studio-800 transition-colors cursor-pointer">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3">
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Enter the email address used during checkout. We will look up all active license keys registered to your account and send them straight to your email.
+        </p>
+        <form onsubmit="handleRetrieveLicenses(event)" class="space-y-3">
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Your Checkout Email</label>
+            <div class="relative">
+              <i data-lucide="mail" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+              <input type="email" id="retrieveEmailInput" required placeholder="name@company.com" class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-studio-950 border border-studio-border text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-indigo-500 transition-colors" />
+            </div>
+          </div>
+          <div id="retrieveMsg" class="hidden"></div>
+          <button type="submit" id="retrieveSubmitBtn" class="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 transition-all cursor-pointer">
+            <i data-lucide="send" class="w-4 h-4"></i>
+            <span>Send All My License Keys</span>
+          </button>
+        </form>
+      </div>
+
+      <div class="pt-2 border-t border-studio-border/60 flex items-center justify-between text-[11px] text-slate-400">
+        <span>Need help? <a href="mailto:support@mtlglabs.space" class="text-indigo-400 hover:underline">Contact Support</a></span>
+        <button onclick="closeRetrieveModal()" class="text-slate-400 hover:text-white transition-colors cursor-pointer">Close</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Paddle.js Dynamic Serverless Checkout Handler -->
   <script>
     let paddleConfig = null;
@@ -478,12 +542,16 @@
       }
     }
 
-    function openPaddleCheckout() {
+    function openPaddleCheckout(initialEmail) {
       if (!window.Paddle || !paddleConfig || !paddleConfig.token) {
         window.location.href = 'mailto:support@mtlglabs.space?subject=MCP%20Studio%20Pro%20Early%20Bird%20License&body=Hi%20Alexandr,%20I%20would%20like%20to%20purchase%20an%20Early%20Bird%20Lifetime%20License%20for%20MCP%20Studio%20Pro%20($24.99).';
         return;
       }
-      Paddle.Checkout.open({
+
+      const emailInput = document.getElementById('checkoutEmailInput');
+      const email = (typeof initialEmail === 'string' && initialEmail) || (emailInput ? emailInput.value.trim() : '');
+
+      const checkoutPayload = {
         items: [
           {
             priceId: paddleConfig.priceId,
@@ -495,7 +563,14 @@
           theme: 'dark',
           locale: 'en'
         }
-      });
+      };
+
+      if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        checkoutPayload.customer = { email };
+        checkoutPayload.customData = { email };
+      }
+
+      Paddle.Checkout.open(checkoutPayload);
     }
 
     async function handlePaddleCheckoutSuccess(eventData) {
@@ -541,6 +616,68 @@
         btnText.textContent = 'Copied!';
         setTimeout(() => { btnText.textContent = 'Copy Key'; }, 2500);
       });
+    }
+
+    function openRetrieveModal() {
+      const emailInput = document.getElementById('checkoutEmailInput');
+      const retrieveEmail = document.getElementById('retrieveEmailInput');
+      if (emailInput && retrieveEmail && emailInput.value.trim()) {
+        retrieveEmail.value = emailInput.value.trim();
+      }
+      document.getElementById('retrieveModal').classList.remove('hidden');
+      const msg = document.getElementById('retrieveMsg');
+      if (msg) msg.classList.add('hidden');
+      lucide.createIcons();
+    }
+
+    function closeRetrieveModal() {
+      document.getElementById('retrieveModal').classList.add('hidden');
+    }
+
+    async function handleRetrieveLicenses(e) {
+      if (e) e.preventDefault();
+      const emailInput = document.getElementById('retrieveEmailInput');
+      const email = emailInput ? emailInput.value.trim() : '';
+      const btn = document.getElementById('retrieveSubmitBtn');
+      const msg = document.getElementById('retrieveMsg');
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        msg.className = 'p-3 rounded-xl bg-rose-950/60 border border-rose-500/40 text-xs text-rose-300';
+        msg.textContent = 'Please enter a valid email address.';
+        msg.classList.remove('hidden');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Looking up...</span>';
+      lucide.createIcons();
+      msg.classList.add('hidden');
+
+      try {
+        const res = await fetch('/api/retrieve-licenses', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+        msg.classList.remove('hidden');
+        if (res.ok && data.success) {
+          msg.className = 'p-3 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-xs text-emerald-300 leading-relaxed';
+          msg.textContent = data.message || `We sent ${data.count} license key(s) to ${email}. Please check your inbox (and spam folder).`;
+          emailInput.value = '';
+        } else {
+          msg.className = 'p-3 rounded-xl bg-amber-950/60 border border-amber-500/40 text-xs text-amber-300 leading-relaxed';
+          msg.textContent = data.message || 'No active licenses found for this email address.';
+        }
+      } catch (err) {
+        msg.className = 'p-3 rounded-xl bg-rose-950/60 border border-rose-500/40 text-xs text-rose-300';
+        msg.textContent = 'Network error contacting license server. Please try again or contact support@mtlglabs.space.';
+        msg.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i data-lucide="send" class="w-4 h-4"></i><span>Send All My License Keys</span>';
+        lucide.createIcons();
+      }
     }
 
     window.addEventListener('load', () => {
