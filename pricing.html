@@ -244,17 +244,6 @@
         </div>
 
         <div class="mt-8 space-y-2.5">
-          <!-- Email Pre-Fill Input -->
-          <div class="space-y-1.5 text-left">
-            <label for="checkoutEmailInput" class="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
-              Activation &amp; License Email
-            </label>
-            <div class="relative">
-              <i data-lucide="mail" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
-              <input type="email" id="checkoutEmailInput" placeholder="name@company.com" class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-studio-950 border border-studio-border text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-indigo-500 transition-colors" />
-            </div>
-          </div>
-
           <!-- Buy Pro Button (Paddle Trigger) -->
           <button onclick="openPaddleCheckout()" class="w-full py-4 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white text-sm font-bold shadow-xl shadow-indigo-600/40 flex items-center justify-center gap-2 transition-all cursor-pointer">
             <i data-lucide="zap" class="w-4 h-4 text-amber-300"></i>
@@ -266,7 +255,7 @@
           <div class="p-3 rounded-xl bg-indigo-950/40 border border-indigo-500/30 flex items-start gap-2.5 text-left">
             <i data-lucide="info" class="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5"></i>
             <p class="text-[11px] text-slate-300 leading-relaxed">
-              <strong class="text-white font-semibold">Important Notice:</strong> Your license key is cryptographically tied to the email above and will be emailed immediately upon checkout. You must enter this exact email inside MCP Studio desktop to activate Pro.
+              <strong class="text-white font-semibold">Instant Delivery:</strong> Your license key is cryptographically tied to your specified email and will be emailed immediately upon checkout. You can activate it instantly inside MCP Studio desktop.
             </p>
           </div>
 
@@ -634,9 +623,6 @@
         return;
       }
 
-      const cardInput = document.getElementById('checkoutEmailInput');
-      if (cardInput) cardInput.value = email;
-
       closePreCheckoutModal();
       openPaddleCheckout(email);
     }
@@ -647,8 +633,7 @@
         return;
       }
 
-      const emailInput = document.getElementById('checkoutEmailInput');
-      const email = (typeof initialEmail === 'string' && initialEmail.trim()) || (emailInput ? emailInput.value.trim().toLowerCase() : '');
+      const email = typeof initialEmail === 'string' ? initialEmail.trim().toLowerCase() : '';
 
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!email || !emailRegex.test(email)) {
