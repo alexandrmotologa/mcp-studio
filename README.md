@@ -81,7 +81,7 @@ Inspect schemas, execute tools with dynamic input forms, generate smart mock dat
 
 <div align="center">
 
-![MCP Studio Workspace](https://raw.githubusercontent.com/alexandrmotologa/mcp-studio/main/assets/mcp_studio_workspace.jpg)
+![MCP Studio Workspace](https://raw.githubusercontent.com/alexandrmotologa/mcp-studio/main/assets/mcp_studio_workspace_real.png)
 
 </div>
 
@@ -90,7 +90,25 @@ Test how frontier LLMs (Claude 3.7 Sonnet, GPT-4o, DeepSeek, and local Ollama) i
 
 <div align="center">
 
-![MCP Agent Simulator](https://raw.githubusercontent.com/alexandrmotologa/mcp-studio/main/assets/mcp_agent_simulator.jpg)
+![MCP Agent Simulator](https://raw.githubusercontent.com/alexandrmotologa/mcp-studio/main/assets/mcp_agent_simulator_real.png)
+
+</div>
+
+### 3. Live JSON-RPC Traffic Bus & Packet Inspector
+Monitor incoming and outgoing JSON-RPC 2.0 frames with millisecond timestamps, request-response correlation, latency benchmarks, and replay capabilities:
+
+<div align="center">
+
+![MCP Traffic Monitor](https://raw.githubusercontent.com/alexandrmotologa/mcp-studio/main/assets/mcp_traffic_real.png)
+
+</div>
+
+### 4. Developer Power Toolkit
+Built-in Schema Validator, Code Generator (Python, TS, Go, Rust), Curl Exporter, Server Scaffolder, and Security Auditing suite:
+
+<div align="center">
+
+![MCP Developer Power Tools](https://raw.githubusercontent.com/alexandrmotologa/mcp-studio/main/assets/mcp_toolkit_real.png)
 
 </div>
 
