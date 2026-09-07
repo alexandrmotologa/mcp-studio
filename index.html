@@ -18,14 +18,14 @@
   <meta property="og:url" content="https://mcp.mtlglabs.space">
   <meta property="og:title" content="MCP Studio — Desktop IDE & AI Simulator for MCP">
   <meta property="og:description" content="The all-in-one developer studio, automated testing suite, and AI agent simulation platform for Model Context Protocol.">
-  <meta property="og:image" content="https://mcp.mtlglabs.space/icon.png">
+  <meta property="og:image" content="https://raw.githubusercontent.com/alexandrmotologa/mcp-studio/main/assets/mcp_studio_workspace.jpg">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://mcp.mtlglabs.space">
   <meta property="twitter:title" content="MCP Studio — Desktop IDE & AI Simulator for MCP">
   <meta property="twitter:description" content="The all-in-one developer studio, automated testing suite, and AI agent simulation platform for Model Context Protocol.">
-  <meta property="twitter:image" content="https://mcp.mtlglabs.space/icon.png">
+  <meta property="twitter:image" content="https://raw.githubusercontent.com/alexandrmotologa/mcp-studio/main/assets/mcp_studio_workspace.jpg">
 
   <!-- Favicon (MCP Server Protocol Vector) -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect width='20' height='8' x='2' y='2' rx='2.5' fill='%236366f1' fill-opacity='0.3'/><rect width='20' height='8' x='2' y='14' rx='2.5' fill='%2306b6d4' fill-opacity='0.3'/><circle cx='6' cy='6' r='1.2' fill='%23818cf8'/><circle cx='10' cy='6' r='1.2' fill='%23818cf8'/><circle cx='6' cy='18' r='1.2' fill='%2322d3ee'/><circle cx='10' cy='18' r='1.2' fill='%2322d3ee'/><path d='M18 6h-4M18 18h-4' stroke='%23a5b4fc'/></svg>">
@@ -135,13 +135,14 @@
         </div>
         <div class="flex items-center gap-2">
           <span class="font-extrabold text-base tracking-tight text-white">MCP Studio</span>
-          <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-400 border border-indigo-500/30">v2.0.0</span>
+          <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-400 border border-indigo-500/30">v2.1.2</span>
         </div>
       </a>
 
       <!-- Center Links -->
-      <nav class="hidden md:flex items-center gap-8 text-xs font-semibold text-slate-300">
+      <nav class="hidden md:flex items-center gap-7 text-xs font-semibold text-slate-300">
         <a href="#features" class="hover:text-indigo-400 transition-colors">Features</a>
+        <a href="#architecture" class="hover:text-indigo-400 transition-colors">Architecture</a>
         <a href="#simulator" class="hover:text-indigo-400 transition-colors">AI Simulator</a>
         <a href="#toolkit" class="hover:text-indigo-400 transition-colors">15 Power Tools</a>
         <a href="pricing.html" class="hover:text-indigo-400 transition-colors flex items-center gap-1.5">
@@ -176,7 +177,7 @@
         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
         <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
       </span>
-      <span>v2.0.0 Enterprise Release</span>
+      <span>v2.1.2 Enterprise Release</span>
       <span class="text-slate-500">•</span>
       <span class="text-indigo-400">Postman for Model Context Protocol</span>
     </div>
@@ -220,15 +221,15 @@
       </div>
     </div>
 
-    <!-- Hero Screenshot Mockup Card -->
-    <div class="mt-14 relative rounded-2xl border border-studio-border/80 bg-studio-900/90 p-2 shadow-2xl glow-indigo overflow-hidden">
-      <!-- Browser Top Bar -->
-      <div class="flex items-center justify-between px-4 py-2.5 border-b border-studio-border/60 bg-studio-950/70 rounded-t-xl text-xs">
+    <!-- Hero Screenshot Showcase Window -->
+    <div class="mt-14 relative rounded-2xl border border-studio-border/80 bg-studio-900/90 p-2 sm:p-3 shadow-2xl glow-indigo overflow-hidden">
+      <!-- Browser / Window Header -->
+      <div class="flex items-center justify-between px-4 py-2.5 border-b border-studio-border/60 bg-studio-950/90 rounded-t-xl text-xs">
         <div class="flex items-center gap-2">
           <div class="w-3 h-3 rounded-full bg-rose-500/80"></div>
           <div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
           <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
-          <span class="ml-2 font-mono text-[11px] text-slate-400 font-semibold">MCP Studio v2.0.0 — Enterprise Protocol IDE</span>
+          <span class="ml-2 font-mono text-[11px] text-slate-400 font-semibold">MCP Studio v2.1.2 — Enterprise Protocol IDE &amp; Inspector</span>
         </div>
         <div class="flex items-center gap-3">
           <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">Ollama local: connected (llama3:8b)</span>
@@ -236,82 +237,28 @@
         </div>
       </div>
 
-      <!-- App Interface Preview -->
-      <div class="grid grid-cols-12 bg-studio-950 rounded-b-xl overflow-hidden text-left min-h-[420px]">
-        <!-- Sidebar -->
-        <div class="col-span-3 border-r border-studio-border p-3 bg-studio-900/50 space-y-2 hidden sm:block">
-          <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-slate-400 pb-2 border-b border-studio-border">
-            <span>MCP Servers</span>
-            <span class="font-mono text-indigo-400">3 Online</span>
+      <!-- Studio Live Interface Render -->
+      <div class="relative rounded-b-xl overflow-hidden group">
+        <img 
+          src="assets/mcp_studio_workspace.jpg" 
+          alt="MCP Studio Desktop IDE Workspace with Dynamic Tool Inspector, Schema Forms, Smart Tables, and JSON-RPC Stream" 
+          class="w-full h-auto object-cover rounded-b-xl border-t border-studio-border/40 transition-transform duration-700 group-hover:scale-[1.01]" 
+          loading="eager"
+        />
+        
+        <!-- Interactive Callout Badges -->
+        <div class="absolute bottom-4 left-4 right-4 hidden md:flex items-center justify-between gap-3 pointer-events-none">
+          <div class="px-3 py-1.5 rounded-lg bg-studio-950/90 border border-indigo-500/40 backdrop-blur-md text-[11px] text-slate-200 shadow-lg flex items-center gap-2 pointer-events-auto">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Dynamic Schema Form &amp; 🎲 Mock Auto-Filler</span>
           </div>
-          <div class="p-2.5 rounded-lg bg-indigo-600/15 border border-indigo-500/40 text-xs">
-            <div class="flex items-center gap-2 font-bold text-white">
-              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-              <span>Postgres DB Server</span>
-            </div>
-            <div class="text-[10px] text-slate-400 font-mono mt-1">stdio • 8 tools • 12ms</div>
+          <div class="px-3 py-1.5 rounded-lg bg-studio-950/90 border border-cyan-500/40 backdrop-blur-md text-[11px] text-slate-200 shadow-lg flex items-center gap-2 pointer-events-auto">
+            <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+            <span>Smart Response Table &amp; Collapsible JSON Tree</span>
           </div>
-          <div class="p-2 rounded-lg bg-studio-900 border border-studio-border text-xs text-slate-300">
-            <div class="flex items-center gap-2 font-semibold">
-              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-              <span>GitHub API MCP</span>
-            </div>
-            <div class="text-[10px] text-slate-500 font-mono mt-0.5">stdio • 14 tools</div>
-          </div>
-          <div class="p-2 rounded-lg bg-studio-900 border border-studio-border text-xs text-slate-300">
-            <div class="flex items-center gap-2 font-semibold">
-              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-              <span>Local Filesystem</span>
-            </div>
-            <div class="text-[10px] text-slate-500 font-mono mt-0.5">stdio • 6 tools</div>
-          </div>
-        </div>
-
-        <!-- Main Workspace -->
-        <div class="col-span-12 sm:col-span-9 p-4 space-y-4">
-          <!-- Toolbar -->
-          <div class="flex items-center justify-between pb-3 border-b border-studio-border">
-            <div class="flex items-center gap-2">
-              <span class="font-bold text-sm text-white font-mono">query_database</span>
-              <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">SQL Tool</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <button class="px-3 py-1 rounded bg-studio-800 border border-studio-border text-[11px] font-semibold text-slate-300">
-                🎲 Auto-Fill Data
-              </button>
-              <button class="px-3 py-1 rounded bg-indigo-600 text-white text-[11px] font-bold shadow">
-                ▶ Execute (Ctrl+↵)
-              </button>
-            </div>
-          </div>
-
-          <!-- Code & Results Grid -->
-          <div class="grid grid-cols-2 gap-3 font-mono text-xs">
-            <div class="bg-studio-900 p-3 rounded-xl border border-studio-border space-y-2">
-              <div class="text-[10px] uppercase font-bold text-slate-400">Tool Arguments (Schema Form)</div>
-              <div class="text-slate-300 text-[11px]"><span class="text-indigo-400 font-semibold">sql:</span> "SELECT id, email, status FROM users WHERE active = true LIMIT 10;"</div>
-              <div class="text-slate-300 text-[11px]"><span class="text-indigo-400 font-semibold">timeout_ms:</span> 5000</div>
-            </div>
-            <div class="bg-studio-900 p-3 rounded-xl border border-studio-border space-y-2">
-              <div class="flex items-center justify-between text-[10px] uppercase font-bold text-slate-400">
-                <span>Response (Smart Table)</span>
-                <span class="text-emerald-400 font-mono">200 OK • 14ms</span>
-              </div>
-              <div class="text-[11px] text-emerald-300 font-mono">
-                ✓ 3 rows returned<br>
-                [ { id: 1, user: "alexander", role: "admin" } ]
-              </div>
-            </div>
-          </div>
-
-          <!-- AI Simulator Bar -->
-          <div class="p-3 rounded-xl bg-gradient-to-r from-indigo-950/80 to-purple-950/80 border border-indigo-800/40 flex items-center justify-between">
-            <div class="flex items-center gap-2.5">
-              <i data-lucide="bot" class="w-4 h-4 text-indigo-400"></i>
-              <span class="text-xs font-bold text-white">AI Agent Simulator:</span>
-              <span class="text-xs text-slate-300">Ollama (llama3:8b) automatically invoked <code class="text-cyan-300">query_database</code> and synthesized natural language answer.</span>
-            </div>
-            <span class="text-[10px] font-mono text-purple-300 bg-purple-950/60 px-2 py-0.5 rounded border border-purple-800/40">242 Tokens • $0.00</span>
+          <div class="px-3 py-1.5 rounded-lg bg-studio-950/90 border border-purple-500/40 backdrop-blur-md text-[11px] text-slate-200 shadow-lg flex items-center gap-2 pointer-events-auto">
+            <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+            <span>Real-time JSON-RPC 2.0 Packet Monitor</span>
           </div>
         </div>
       </div>
@@ -331,6 +278,59 @@
         <span class="hover:text-white transition-colors">Anthropic Claude 3.7</span>
         <span class="hover:text-white transition-colors">Python FastMCP</span>
         <span class="hover:text-white transition-colors">TypeScript SDK</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture & Protocol Bridge Section -->
+  <section id="architecture" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-14">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 text-xs font-bold mb-3">
+        <i data-lucide="network" class="w-3.5 h-3.5"></i>
+        <span>Protocol Topology &amp; Stack Overview</span>
+      </div>
+      <h3 class="text-3xl sm:text-4xl font-extrabold text-white">How MCP Studio Fits Into Your AI Stack</h3>
+      <p class="text-slate-400 mt-3 text-sm leading-relaxed">
+        Stop connecting untested MCP servers directly to production agents. MCP Studio sits as the protective inspection, testing, and simulation gateway between your AI clients and target backend infrastructure.
+      </p>
+    </div>
+
+    <!-- Architecture Diagram Card -->
+    <div class="rounded-2xl border border-studio-border bg-studio-900/80 p-2 sm:p-4 shadow-2xl glow-indigo overflow-hidden">
+      <div class="rounded-xl overflow-hidden border border-studio-border/60">
+        <img 
+          src="assets/mcp_architecture.jpg" 
+          alt="Model Context Protocol System Architecture Diagram connecting AI Clients to MCP Studio and target backend servers" 
+          class="w-full h-auto object-cover rounded-xl"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    <!-- Three Architectural Pillars -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+      <div class="p-6 rounded-2xl bg-studio-900/60 border border-studio-border hover:border-indigo-500/40 transition-colors">
+        <div class="w-10 h-10 rounded-xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-400 mb-4 font-bold text-sm">01</div>
+        <h4 class="text-base font-bold text-white mb-2">Eliminate Blind Tool Execution</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          AI agents fail silently or loop endlessly when MCP tool schemas contain subtle parameter mismatch errors. MCP Studio validates schemas, runs payload assertions, and intercepts malformed responses beforehand.
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-studio-900/60 border border-studio-border hover:border-cyan-500/40 transition-colors">
+        <div class="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-4 font-bold text-sm">02</div>
+        <h4 class="text-base font-bold text-white mb-2">Multi-Transport Gateway</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Simultaneously inspect local <code class="text-slate-300 font-mono">stdio</code> child processes, remote <code class="text-slate-300 font-mono">SSE</code> streams, and containerized Docker MCP servers from one unified, tabbed control plane.
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-studio-900/60 border border-studio-border hover:border-emerald-500/40 transition-colors">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4 font-bold text-sm">03</div>
+        <h4 class="text-base font-bold text-white mb-2">1-Click Client Sync</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Once your tools pass automated test suites in MCP Studio, export validated configurations directly into Claude Desktop (<code class="text-slate-300 font-mono">claude_desktop_config.json</code>) or Cursor (<code class="text-slate-300 font-mono">.cursor/mcp.json</code>) with 1 click.
+        </p>
       </div>
     </div>
   </section>
@@ -407,6 +407,65 @@
         <h4 class="text-base font-bold text-white mb-2">Live JSON-RPC 2.0 Packet Stream</h4>
         <p class="text-xs text-slate-400 leading-relaxed">
           Inspect raw request/response frames with millisecond latency timers, set breakpoint interceptors to mutate parameters on the fly, and replay past calls instantly.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Agent Simulator & Model Arena Section -->
+  <section id="simulator" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-t border-studio-border/60">
+    <div class="text-center max-w-3xl mx-auto mb-14">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/30 text-xs font-bold mb-3">
+        <i data-lucide="bot" class="w-3.5 h-3.5"></i>
+        <span>Autonomous Multi-LLM Testing Environment</span>
+      </div>
+      <h3 class="text-3xl sm:text-4xl font-extrabold text-white">AI Agent Simulator &amp; Side-by-Side Model Arena</h3>
+      <p class="text-slate-400 mt-3 text-sm leading-relaxed">
+        Watch how LLMs actually perceive and invoke your MCP tools. Test edge cases with offline local models or benchmark cloud frontier models head-to-head in real time.
+      </p>
+    </div>
+
+    <!-- Simulator Showcase Card -->
+    <div class="rounded-2xl border border-studio-border bg-studio-900/80 p-2 sm:p-4 shadow-2xl glow-indigo overflow-hidden">
+      <div class="rounded-xl overflow-hidden border border-studio-border/60">
+        <img 
+          src="assets/mcp_agent_simulator.jpg" 
+          alt="MCP Studio AI Agent Simulator and Model Arena comparing Claude 3.7 Sonnet and Local Ollama LLaMA 3.8B with live execution traces" 
+          class="w-full h-auto object-cover rounded-xl"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    <!-- Simulator Capabilities Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+      <div class="p-6 rounded-2xl bg-studio-900/60 border border-studio-border hover:border-purple-500/40 transition-colors">
+        <div class="w-10 h-10 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400 mb-4">
+          <i data-lucide="cpu" class="w-5 h-5"></i>
+        </div>
+        <h4 class="text-base font-bold text-white mb-2">Zero-Cost Offline Ollama</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Connect directly to your local Ollama instance (<code class="text-slate-300 font-mono">llama3</code>, <code class="text-slate-300 font-mono">mistral</code>, <code class="text-slate-300 font-mono">qwen</code>, <code class="text-slate-300 font-mono">deepseek-r1</code>). Debug complex tool calls iteratively without burning token budgets or exposing sensitive internal schemas.
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-studio-900/60 border border-studio-border hover:border-amber-500/40 transition-colors">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-4">
+          <i data-lucide="swords" class="w-5 h-5"></i>
+        </div>
+        <h4 class="text-base font-bold text-white mb-2">⚔️ Side-by-Side Model Arena</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Send the exact same user prompt to two models simultaneously (e.g. Local LLaMA 3.8B vs Claude 3.7 Sonnet). Directly compare tool selection accuracy, parameter formulation, latency, and token efficiency.
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-studio-900/60 border border-studio-border hover:border-cyan-500/40 transition-colors">
+        <div class="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-4">
+          <i data-lucide="binary" class="w-5 h-5"></i>
+        </div>
+        <h4 class="text-base font-bold text-white mb-2">Step-by-Step Reasoning Traces</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Inspect the complete agent execution cycle: user intent parsing → tool call generation with exact JSON parameters → MCP server execution → natural language synthesis. No hidden black-box behavior.
         </p>
       </div>
     </div>
@@ -672,13 +731,21 @@
           </div>
         </div>
 
-        <div class="mt-8 space-y-2">
+        <div class="mt-8 space-y-2.5">
           <!-- Buy Pro Button (Paddle Trigger) -->
           <button onclick="openPaddleCheckout()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white text-sm font-bold shadow-xl shadow-indigo-600/40 flex items-center justify-center gap-2 transition-all cursor-pointer">
             <i data-lucide="zap" class="w-4 h-4 text-amber-300"></i>
             <span>Buy Lifetime Pro Key ($24.99 Early Bird)</span>
           </button>
           <p class="text-[11px] text-center text-slate-400">Processed securely via Paddle • Instant License Key Delivery</p>
+
+          <!-- Email Binding Callout -->
+          <div class="p-3 rounded-xl bg-indigo-950/40 border border-indigo-500/30 flex items-start gap-2.5 text-left">
+            <i data-lucide="info" class="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5"></i>
+            <p class="text-[11px] text-slate-300 leading-relaxed">
+              <strong class="text-white font-semibold">Important Notice:</strong> Please use the email address during checkout that you want to bind your license to. The license key is cryptographically tied to this email and you must enter the exact same email inside the app to activate Pro.
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -751,7 +818,7 @@
         <a href="refunds.html" class="hover:text-white transition-colors">Refund Policy</a>
         <a href="https://mtlglabs.space" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">MTLG Labs</a>
         <a href="https://github.com/alexandrmotologa/mcp-studio" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">GitHub</a>
-        <a href="mailto:alexander@mtlglabs.space" class="hover:text-white transition-colors">Support</a>
+        <a href="mailto:support@mtlglabs.space" class="hover:text-white transition-colors">Support</a>
       </div>
     </div>
   </footer>
@@ -804,7 +871,7 @@
         <ol class="space-y-1.5 text-slate-300 pl-4 list-decimal text-[11px]">
           <li>Download &amp; launch <strong>MCP Studio</strong> on your computer.</li>
           <li>Click <strong>"Upgrade to Pro"</strong> (or open Settings → License).</li>
-          <li>Paste your email and license key to unlock all 15 power tools on up to <strong>3 personal devices</strong>.</li>
+          <li>Paste your email (<strong class="text-indigo-300">must match your checkout email</strong>) and license key to unlock all 15 power tools on up to <strong>3 personal devices</strong>.</li>
         </ol>
       </div>
 
@@ -849,7 +916,7 @@
 
     function openPaddleCheckout() {
       if (!window.Paddle || !paddleConfig || !paddleConfig.token) {
-        window.location.href = 'mailto:alexander@mtlglabs.space?subject=MCP%20Studio%20Pro%20Early%20Bird%20License&body=Hi%20Alexandr,%20I%20would%20like%20to%20purchase%20an%20Early%20Bird%20Lifetime%20License%20for%20MCP%20Studio%20Pro%20($24.99).';
+        window.location.href = 'mailto:support@mtlglabs.space?subject=MCP%20Studio%20Pro%20Early%20Bird%20License&body=Hi%20Alexandr,%20I%20would%20like%20to%20purchase%20an%20Early%20Bird%20Lifetime%20License%20for%20MCP%20Studio%20Pro%20($24.99).';
         return;
       }
       Paddle.Checkout.open({
@@ -867,29 +934,36 @@
       });
     }
 
-    function generateKeyFromTx(txId) {
-      let hash = 0;
-      const str = (txId || 'MCP') + Date.now().toString();
-      for (let i = 0; i < str.length; i++) {
-        hash = ((hash << 5) - hash) + str.charCodeAt(i);
-        hash |= 0;
-      }
-      const hex = Math.abs(hash).toString(16).toUpperCase().padStart(8, '0');
-      const randHex = () => Math.floor(Math.random() * 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
-      return `MCP-PRO-${hex.slice(0,4)}-${hex.slice(4,8)}-${randHex()}`;
-    }
+    async function handlePaddleCheckoutSuccess(eventData) {
+      const email = eventData?.data?.customer?.email || eventData?.data?.user?.email || '';
+      const txId = eventData?.data?.transaction_id || eventData?.data?.id || '';
 
-    function handlePaddleCheckoutSuccess(eventData) {
-      const email = eventData?.data?.customer?.email || eventData?.data?.user?.email || 'Customer Email';
-      const txId = eventData?.data?.transaction_id || eventData?.data?.id || 'TX-' + Math.random().toString(36).substring(2, 9).toUpperCase();
-      const licenseKey = generateKeyFromTx(txId);
-
-      document.getElementById('customerEmailDisplay').textContent = email;
-      document.getElementById('licenseKeyText').textContent = licenseKey;
+      document.getElementById('customerEmailDisplay').textContent = email || 'Processing...';
+      document.getElementById('licenseKeyText').textContent = 'Generating verified key...';
 
       const modal = document.getElementById('licenseSuccessModal');
       modal.classList.remove('hidden');
       lucide.createIcons();
+
+      if (email) {
+        try {
+          const res = await fetch('/api/claim-license', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, transactionId: txId })
+          });
+          const result = await res.json();
+          if (result.success && result.licenseKey) {
+            document.getElementById('customerEmailDisplay').textContent = result.email;
+            document.getElementById('licenseKeyText').textContent = result.licenseKey;
+            return;
+          }
+        } catch (err) {
+          console.error('[Checkout] Failed to retrieve server license:', err);
+        }
+      }
+
+      document.getElementById('licenseKeyText').textContent = 'Check your email: ' + email;
     }
 
     function closeLicenseModal() {

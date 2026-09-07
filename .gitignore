@@ -1,0 +1,22 @@
+# Node & Build
+node_modules/
+dist/
+out/
+.env
+.env.*
+*.log
+npm-debug.log*
+
+# OS Files
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# IDEs
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
