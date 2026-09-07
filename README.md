@@ -6,9 +6,9 @@
 
 ### The Ultimate Desktop IDE, Inspector & Testing Platform for Model Context Protocol (MCP)
 
-[![Release](https://img.shields.io/badge/release-v2.1.5-indigo.svg)](https://github.com/alexandrmotologa/mcp-studio/releases)
+[![Release](https://img.shields.io/badge/release-v2.1.6-indigo.svg)](https://github.com/alexandrmotologa/mcp-studio/releases)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
-[![Tests](https://img.shields.io/badge/tests-48%20passing%20(9%20suites)-emerald.svg)]()
+[![Tests](https://img.shields.io/badge/tests-50%20passing%20(10%20suites)-emerald.svg)]()
 [![Electron](https://img.shields.io/badge/Electron-v34.2.0-47848F.svg?logo=electron&logoColor=white)](https://electronjs.org)
 [![React](https://img.shields.io/badge/React-v19.0.0-61DAFB.svg?logo=react&logoColor=black)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7.3-3178C6.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
@@ -19,12 +19,12 @@
 
 <br/>
 
-[![Download Windows Setup](https://img.shields.io/badge/Windows-NSIS%20Setup%20(.exe)-6366f1?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-Setup-2.1.5.exe)
-[![Download Windows Portable](https://img.shields.io/badge/Windows-Portable%20(.exe)-4f46e5?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-Portable-2.1.5.exe)
-[![Download Mac Apple Silicon](https://img.shields.io/badge/macOS-Apple%20Silicon%20M%20(.dmg)-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-2.1.5-arm64.dmg)
-[![Download Mac Intel](https://img.shields.io/badge/macOS-Intel%20x64%20(.dmg)-333333?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-2.1.5-x64.dmg)
-[![Download Linux AppImage](https://img.shields.io/badge/Linux-AppImage-E95420?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-2.1.5.AppImage)
-[![Download Linux Deb](https://img.shields.io/badge/Linux-Debian%20%2F%20Ubuntu%20(.deb)-A81D33?style=for-the-badge&logo=debian&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-2.1.5.deb)
+[![Download Windows Setup](https://img.shields.io/badge/Windows-NSIS%20Setup%20(.exe)-6366f1?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-Setup-2.1.6.exe)
+[![Download Windows Portable](https://img.shields.io/badge/Windows-Portable%20(.exe)-4f46e5?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-Portable-2.1.6.exe)
+[![Download Mac Apple Silicon](https://img.shields.io/badge/macOS-Apple%20Silicon%20M%20(.dmg)-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-2.1.6-arm64.dmg)
+[![Download Mac Intel](https://img.shields.io/badge/macOS-Intel%20x64%20(.dmg)-333333?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-2.1.6-x64.dmg)
+[![Download Linux AppImage](https://img.shields.io/badge/Linux-AppImage-E95420?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-2.1.6.AppImage)
+[![Download Linux Deb](https://img.shields.io/badge/Linux-Debian%20%2F%20Ubuntu%20(.deb)-A81D33?style=for-the-badge&logo=debian&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-2.1.6.deb)
 
 </div>
 
