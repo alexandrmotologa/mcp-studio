@@ -562,6 +562,7 @@
   <!-- Paddle.js Dynamic Serverless Checkout Handler -->
   <script>
     let paddleConfig = null;
+    let currentCustomerEmail = '';
 
     async function initPaddle() {
       try {
@@ -572,6 +573,14 @@
             Paddle.Environment.set(paddleConfig.environment || 'sandbox');
             Paddle.Initialize({
               token: paddleConfig.token,
+              checkout: {
+                settings: {
+                  displayMode: 'overlay',
+                  theme: 'dark',
+                  locale: 'en',
+                  allowLogout: false
+                }
+              },
               eventCallback: function(data) {
                 if (data && (data.name === 'checkout.completed' || data.name === 'checkout.payment_completed')) {
                   handlePaddleCheckoutSuccess(data);
@@ -590,10 +599,12 @@
       const input = document.getElementById('preCheckoutEmailInput');
       const errorMsg = document.getElementById('preCheckoutError');
       if (errorMsg) errorMsg.classList.add('hidden');
-
-      const cardInput = document.getElementById('checkoutEmailInput');
-      if (input && cardInput && cardInput.value.trim()) {
-        input.value = cardInput.value.trim();
+      if (input) {
+        input.classList.remove('border-rose-500', 'ring-1', 'ring-rose-500');
+        input.oninput = () => {
+          if (errorMsg) errorMsg.classList.add('hidden');
+          input.classList.remove('border-rose-500', 'ring-1', 'ring-rose-500');
+        };
       }
 
       if (modal) {
@@ -614,14 +625,21 @@
       const errorMsg = document.getElementById('preCheckoutError');
       const email = input ? input.value.trim().toLowerCase() : '';
 
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       if (!email || !emailRegex.test(email)) {
         if (errorMsg) {
-          errorMsg.textContent = 'Please enter a valid email address.';
+          errorMsg.textContent = 'Please enter a valid email address (e.g. name@company.com).';
           errorMsg.classList.remove('hidden');
+        }
+        if (input) {
+          input.classList.add('border-rose-500', 'ring-1', 'ring-rose-500');
+          input.focus();
         }
         return;
       }
+
+      if (errorMsg) errorMsg.classList.add('hidden');
+      if (input) input.classList.remove('border-rose-500', 'ring-1', 'ring-rose-500');
 
       closePreCheckoutModal();
       openPaddleCheckout(email);
@@ -635,11 +653,13 @@
 
       const email = typeof initialEmail === 'string' ? initialEmail.trim().toLowerCase() : '';
 
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       if (!email || !emailRegex.test(email)) {
         openPreCheckoutModal();
         return;
       }
+
+      currentCustomerEmail = email;
 
       const checkoutPayload = {
         items: [
@@ -653,7 +673,8 @@
         settings: {
           displayMode: 'overlay',
           theme: 'dark',
-          locale: 'en'
+          locale: 'en',
+          allowLogout: false
         }
       };
 
@@ -661,7 +682,7 @@
     }
 
     async function handlePaddleCheckoutSuccess(eventData) {
-      const email = eventData?.data?.customer?.email || eventData?.data?.user?.email || '';
+      const email = eventData?.data?.customer?.email || eventData?.data?.user?.email || currentCustomerEmail || '';
       const txId = eventData?.data?.transaction_id || eventData?.data?.id || '';
 
       document.getElementById('customerEmailDisplay').textContent = email || 'Processing...';
