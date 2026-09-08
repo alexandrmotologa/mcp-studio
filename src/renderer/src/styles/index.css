@@ -1,0 +1,565 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--studio-950, #090a0f);
+}
+
+/* =========================================================
+   ROOT THEME PALETTES
+   ========================================================= */
+
+:root {
+  /* Default: Cyberpunk Indigo (Dark) */
+  --studio-950: #090a0f;
+  --studio-900: #0f111a;
+  --studio-850: #151824;
+  --studio-800: #1c2030;
+  --studio-700: #282e45;
+  --studio-600: #3c4466;
+  --studio-border: #23293d;
+  --studio-text: #f8fafc;
+  --studio-text-muted: #94a3b8;
+  --studio-accent: #6366f1;
+}
+
+/* 1. Midnight OLED (True Black) */
+[data-theme='midnight-oled'] {
+  --studio-950: #000000;
+  --studio-900: #09090b;
+  --studio-850: #121215;
+  --studio-800: #18181b;
+  --studio-700: #27272a;
+  --studio-600: #3f3f46;
+  --studio-border: #27272a;
+  --studio-text: #ffffff;
+  --studio-text-muted: #a1a1aa;
+  --studio-accent: #8b5cf6;
+}
+
+/* 2. Emerald Matrix (Dark Hacker) */
+[data-theme='emerald-matrix'] {
+  --studio-950: #030806;
+  --studio-900: #06120e;
+  --studio-850: #0b1a14;
+  --studio-800: #10261d;
+  --studio-700: #18382b;
+  --studio-600: #224d3b;
+  --studio-border: #143829;
+  --studio-text: #ecfdf5;
+  --studio-text-muted: #6ee7b7;
+  --studio-accent: #10b981;
+}
+
+/* 3. Dracula Slate (Dark Purple) */
+[data-theme='dracula-slate'] {
+  --studio-950: #11111b;
+  --studio-900: #181825;
+  --studio-850: #1e1e2e;
+  --studio-800: #252538;
+  --studio-700: #313244;
+  --studio-600: #45475a;
+  --studio-border: #313244;
+  --studio-text: #cdd6f4;
+  --studio-text-muted: #a6adc8;
+  --studio-accent: #cba6f7;
+}
+
+/* 4. Nordic Clean Light */
+[data-theme='nordic-light'],
+html.light-mode[data-theme='nordic-light'] {
+  --studio-950: #f1f5f9;
+  --studio-900: #f8fafc;
+  --studio-850: #ffffff;
+  --studio-800: #e2e8f0;
+  --studio-700: #cbd5e1;
+  --studio-600: #94a3b8;
+  --studio-border: #e2e8f0;
+  --studio-text: #0f172a;
+  --studio-text-muted: #475569;
+  --studio-accent: #4f46e5;
+}
+
+/* 5. GitHub Crisp White */
+[data-theme='github-light'],
+html.light-mode[data-theme='github-light'] {
+  --studio-950: #f6f8fa;
+  --studio-900: #ffffff;
+  --studio-850: #f6f8fa;
+  --studio-800: #eaeef2;
+  --studio-700: #d0d7de;
+  --studio-600: #afb8c1;
+  --studio-border: #d0d7de;
+  --studio-text: #1f2328;
+  --studio-text-muted: #57606a;
+  --studio-accent: #0969da;
+}
+
+/* 6. Solarized Warm Cream */
+[data-theme='solarized-light'],
+html.light-mode[data-theme='solarized-light'] {
+  --studio-950: #fbf1c7;
+  --studio-900: #fdf6e3;
+  --studio-850: #fff9e8;
+  --studio-800: #eee8d5;
+  --studio-700: #e0d8c0;
+  --studio-600: #93a1a1;
+  --studio-border: #eee8d5;
+  --studio-text: #073642;
+  --studio-text-muted: #586e75;
+  --studio-accent: #d97706;
+}
+
+/* =========================================================
+   UNIVERSAL LIGHT MODE ADAPTATION LAYER
+   ========================================================= */
+
+html.light-mode {
+  color-scheme: light;
+}
+
+/* 1. Global Typography & High-Contrast Hierarchy in Light Mode */
+html.light-mode body,
+html.light-mode #root {
+  background-color: var(--studio-950);
+  color: var(--studio-text);
+}
+
+html.light-mode h1,
+html.light-mode h2,
+html.light-mode h3,
+html.light-mode h4,
+html.light-mode h5 {
+  color: var(--studio-text) !important;
+}
+
+/* Explicit primary action button text protection in light mode */
+html.light-mode .btn-primary,
+html.light-mode .btn-primary *,
+html.light-mode .execute-btn,
+html.light-mode .execute-btn *,
+html.light-mode .btn-cta-primary,
+html.light-mode .btn-cta-primary * {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+}
+
+/* Brand Title Adaptation */
+.studio-brand-title {
+  color: #ffffff;
+}
+html.light-mode .studio-brand-title {
+  color: var(--studio-text) !important;
+}
+
+/* Toolkit Header Button */
+.toolkit-btn {
+  background: linear-gradient(to right, rgba(30, 27, 75, 0.8), rgba(59, 7, 100, 0.8));
+  border-color: rgba(99, 102, 241, 0.4);
+  color: #c7d2fe;
+}
+.toolkit-btn:hover {
+  background: linear-gradient(to right, rgba(49, 46, 129, 0.9), rgba(88, 28, 135, 0.9));
+  color: #ffffff;
+}
+html.light-mode .toolkit-btn {
+  background: linear-gradient(to right, #eef2ff, #faf5ff) !important;
+  border-color: #c7d2fe !important;
+  color: #4338ca !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+}
+html.light-mode .toolkit-btn * {
+  color: #4338ca !important;
+}
+html.light-mode .toolkit-btn:hover {
+  background: linear-gradient(to right, #e0e7ff, #f3e8ff) !important;
+  border-color: #818cf8 !important;
+  color: #3730a3 !important;
+}
+
+/* KPI Metric Values */
+.metric-kpi-white { color: #ffffff; }
+.metric-kpi-amber { color: #fcd34d; }
+.metric-kpi-emerald { color: #34d399; }
+.metric-kpi-cyan { color: #67e8f9; }
+.metric-kpi-purple { color: #d8b4fe; }
+
+html.light-mode .metric-kpi-white { color: var(--studio-text) !important; }
+html.light-mode .metric-kpi-amber { color: #b45309 !important; }
+html.light-mode .metric-kpi-emerald { color: #047857 !important; }
+html.light-mode .metric-kpi-cyan { color: #0e7490 !important; }
+html.light-mode .metric-kpi-purple { color: #6b21a8 !important; }
+
+/* Transport Toggle (Stdio / SSE) */
+.transport-toggle-active {
+  background-color: rgba(79, 70, 229, 0.2);
+  border-color: #6366f1;
+  color: #a5b4fc;
+}
+.transport-toggle-inactive {
+  background-color: var(--studio-950);
+  border-color: var(--studio-border);
+  color: #94a3b8;
+}
+html.light-mode .transport-toggle-active {
+  background-color: #e0e7ff !important;
+  border-color: #4f46e5 !important;
+  color: #3730a3 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 1px 3px rgba(79, 70, 229, 0.15) !important;
+}
+html.light-mode .transport-toggle-active * {
+  color: #3730a3 !important;
+}
+html.light-mode .transport-toggle-inactive {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  color: #64748b !important;
+}
+html.light-mode .transport-toggle-inactive:hover {
+  background-color: #f1f5f9 !important;
+  color: #1e293b !important;
+}
+
+/* Traffic Stream Custom Adaptation */
+.traffic-method-text {
+  color: #e2e8f0;
+}
+html.light-mode .traffic-method-text {
+  color: #0f172a !important;
+}
+html.light-mode .traffic-log-selected {
+  background-color: #e0e7ff !important;
+  border-color: #6366f1 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+html.light-mode .traffic-log-selected .traffic-method-text {
+  color: #312e81 !important;
+  font-weight: 700 !important;
+}
+html.light-mode .traffic-log-unselected:hover {
+  background-color: #f1f5f9 !important;
+}
+html.light-mode .traffic-payload-view {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+html.light-mode .traffic-payload-view pre {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+html.light-mode label,
+html.light-mode .font-medium.text-slate-300,
+html.light-mode .font-semibold.text-slate-300,
+html.light-mode .text-slate-300 {
+  color: #1e293b !important; /* High-contrast Slate-800 */
+}
+
+html.light-mode p,
+html.light-mode .text-slate-400 {
+  color: var(--studio-text-muted) !important;
+}
+
+html.light-mode .text-slate-500 {
+  color: #64748b !important;
+}
+
+/* 2. Vibrant & High-Contrast Status / Category Accent Colors in Light Mode */
+html.light-mode .text-indigo-400,
+html.light-mode .text-indigo-300 {
+  color: #4338ca !important; /* Indigo 700 */
+}
+
+html.light-mode .text-purple-400,
+html.light-mode .text-purple-300 {
+  color: #6b21a8 !important; /* Purple 800 */
+}
+
+html.light-mode .text-cyan-400,
+html.light-mode .text-cyan-300 {
+  color: #0e7490 !important; /* Cyan 700 */
+}
+
+html.light-mode .text-emerald-400,
+html.light-mode .text-emerald-300 {
+  color: #047857 !important; /* Emerald 700 */
+}
+
+html.light-mode .text-amber-400,
+html.light-mode .text-amber-300 {
+  color: #b45309 !important; /* Amber 700 */
+}
+
+html.light-mode .text-rose-400,
+html.light-mode .text-rose-300 {
+  color: #be123c !important; /* Rose 700 */
+}
+
+/* 3. Soft Pastel Badges & Pill Tags (replacing dark-tinted bg-*-950 on light backgrounds) */
+html.light-mode .bg-indigo-950,
+html.light-mode .bg-indigo-950\/40,
+html.light-mode .bg-indigo-950\/60,
+html.light-mode .bg-indigo-950\/80,
+html.light-mode .bg-indigo-900\/50,
+html.light-mode .bg-indigo-500\/10,
+html.light-mode .bg-indigo-500\/20,
+html.light-mode .bg-indigo-600\/20 {
+  background-color: #eef2ff !important;
+  color: #4338ca !important;
+  border-color: #c7d2fe !important;
+}
+
+html.light-mode .bg-purple-950,
+html.light-mode .bg-purple-950\/40,
+html.light-mode .bg-purple-950\/60,
+html.light-mode .bg-purple-950\/80,
+html.light-mode .bg-purple-900\/50,
+html.light-mode .bg-purple-500\/10,
+html.light-mode .bg-purple-500\/20,
+html.light-mode .bg-purple-600\/20 {
+  background-color: #faf5ff !important;
+  color: #6b21a8 !important;
+  border-color: #e9d5ff !important;
+}
+
+html.light-mode .bg-cyan-950,
+html.light-mode .bg-cyan-950\/40,
+html.light-mode .bg-cyan-950\/60,
+html.light-mode .bg-cyan-950\/80,
+html.light-mode .bg-cyan-900\/50,
+html.light-mode .bg-cyan-500\/10,
+html.light-mode .bg-cyan-500\/20,
+html.light-mode .bg-cyan-600\/20 {
+  background-color: #ecfeff !important;
+  color: #0e7490 !important;
+  border-color: #a5f3fc !important;
+}
+
+html.light-mode .bg-emerald-950,
+html.light-mode .bg-emerald-950\/40,
+html.light-mode .bg-emerald-950\/60,
+html.light-mode .bg-emerald-950\/80,
+html.light-mode .bg-emerald-900\/50,
+html.light-mode .bg-emerald-500\/10,
+html.light-mode .bg-emerald-500\/20,
+html.light-mode .bg-emerald-600\/20 {
+  background-color: #ecfdf5 !important;
+  color: #047857 !important;
+  border-color: #a7f3d0 !important;
+}
+
+html.light-mode .bg-amber-950,
+html.light-mode .bg-amber-950\/40,
+html.light-mode .bg-amber-950\/60,
+html.light-mode .bg-amber-950\/80,
+html.light-mode .bg-amber-900\/50,
+html.light-mode .bg-amber-500\/10,
+html.light-mode .bg-amber-500\/20,
+html.light-mode .bg-amber-600\/20 {
+  background-color: #fffbeb !important;
+  color: #b45309 !important;
+  border-color: #fde68a !important;
+}
+
+html.light-mode .bg-rose-950,
+html.light-mode .bg-rose-950\/40,
+html.light-mode .bg-rose-950\/60,
+html.light-mode .bg-rose-950\/80,
+html.light-mode .bg-rose-900\/50,
+html.light-mode .bg-rose-500\/10,
+html.light-mode .bg-rose-500\/20,
+html.light-mode .bg-rose-600\/20 {
+  background-color: #fff1f2 !important;
+  color: #be123c !important;
+  border-color: #fecdd3 !important;
+}
+
+/* 4. Secondary Buttons, Dismiss/Cancel & Muted Controls */
+html.light-mode button.bg-studio-800,
+html.light-mode .bg-studio-800 {
+  background-color: var(--studio-800) !important;
+  color: #1e293b !important;
+  border-color: var(--studio-border) !important;
+}
+
+html.light-mode button.bg-studio-800:hover,
+html.light-mode .bg-studio-800:hover {
+  background-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+html.light-mode .bg-slate-800,
+html.light-mode .bg-slate-850,
+html.light-mode .bg-slate-900,
+html.light-mode .bg-slate-950 {
+  background-color: var(--studio-850) !important;
+  border-color: var(--studio-border) !important;
+}
+
+/* 5. Primary Buttons & Sidebar '+' Button */
+html.light-mode .bg-indigo-600 {
+  background-color: #4f46e5 !important;
+  color: #ffffff !important;
+}
+
+html.light-mode .bg-indigo-600:hover {
+  background-color: #4338ca !important;
+}
+
+/* 6. Toolkit Gradient Button & Gradients in Light Mode */
+html.light-mode .bg-gradient-to-r.from-indigo-950\/80,
+html.light-mode .bg-gradient-to-r.from-indigo-950\/70,
+html.light-mode .bg-gradient-to-r.from-indigo-950\/60,
+html.light-mode .bg-gradient-to-br.from-indigo-950\/40,
+html.light-mode .from-indigo-950\/40,
+html.light-mode .to-purple-950\/40 {
+  background: var(--studio-950) !important;
+  color: var(--studio-text) !important;
+  border-color: var(--studio-border) !important;
+}
+
+html.light-mode .bg-studio-900\/30,
+html.light-mode .bg-studio-900\/40,
+html.light-mode .bg-studio-900\/50,
+html.light-mode .bg-studio-900\/60,
+html.light-mode .bg-studio-950\/30,
+html.light-mode .bg-studio-950\/40,
+html.light-mode .bg-studio-950\/50,
+html.light-mode .bg-studio-950\/60,
+html.light-mode .bg-studio-950\/80 {
+  background-color: var(--studio-950) !important;
+}
+
+html.light-mode .border-indigo-800\/50,
+html.light-mode .border-cyan-800\/50,
+html.light-mode .border-purple-800\/60,
+html.light-mode .border-emerald-800\/50,
+html.light-mode .border-rose-800\/50,
+html.light-mode .border-amber-800\/50 {
+  border-color: var(--studio-border) !important;
+}
+
+/* 7. Inputs, Textareas, Selects & Checkboxes */
+html.light-mode input[type='text'],
+html.light-mode input[type='password'],
+html.light-mode input[type='number'],
+html.light-mode input[type='search'],
+html.light-mode input[type='url'],
+html.light-mode textarea,
+html.light-mode select {
+  background-color: var(--studio-850) !important;
+  color: var(--studio-text) !important;
+  border-color: var(--studio-border) !important;
+}
+
+html.light-mode input::placeholder,
+html.light-mode textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* 8. Containers, Cards & Modals */
+html.light-mode .bg-studio-950 {
+  background-color: var(--studio-950) !important;
+}
+
+html.light-mode .bg-studio-900 {
+  background-color: var(--studio-900) !important;
+}
+
+html.light-mode .bg-studio-850 {
+  background-color: var(--studio-850) !important;
+}
+
+html.light-mode .bg-studio-800 {
+  background-color: var(--studio-800) !important;
+}
+
+html.light-mode .border-studio-border {
+  border-color: var(--studio-border) !important;
+}
+
+/* Soft Modern Backdrop for Light Mode */
+html.light-mode .bg-black\/70,
+html.light-mode .bg-black\/75,
+html.light-mode .bg-black\/80 {
+  background-color: rgba(15, 23, 42, 0.45) !important;
+}
+
+/* 9. Code Blocks & JSON Previews in Light Mode */
+html.light-mode pre,
+html.light-mode code {
+  color: #0f172a !important;
+}
+
+html.light-mode pre {
+  background-color: var(--studio-850) !important;
+  border: 1px solid var(--studio-border);
+}
+
+/* 10. Hover & Interactive States in Light Mode */
+html.light-mode .hover\:bg-studio-900:hover {
+  background-color: var(--studio-900) !important;
+}
+
+html.light-mode .hover\:bg-studio-800:hover {
+  background-color: var(--studio-800) !important;
+}
+
+html.light-mode .hover\:bg-studio-700:hover {
+  background-color: var(--studio-700) !important;
+}
+
+html.light-mode .hover\:text-white:hover {
+  color: var(--studio-text) !important;
+}
+
+html.light-mode .hover\:text-slate-200:hover {
+  color: #1e293b !important;
+}
+
+/* 11. Base Scrollbar */
+@layer base {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--studio-900);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--studio-700);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--studio-600);
+  }
+
+  input, textarea, select {
+    outline: none;
+  }
+}
+
+.glow-accent {
+  box-shadow: 0 0 20px -5px rgba(99, 102, 241, 0.35);
+}
+
+.glow-emerald {
+  box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.4);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 15px -3px rgba(6, 182, 212, 0.4);
+}
+

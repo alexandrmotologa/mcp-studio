@@ -1,0 +1,74 @@
+appId: com.alexandrmotologa.mcpstudio
+productName: MCP Studio
+directories:
+  buildResources: build
+  output: dist
+files:
+  - '!**/.vscode/*'
+  - '!src/*'
+  - '!electron.vite.config.{js,ts,mjs,cjs}'
+  - '!{.eslintignore,.eslintrc.cjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
+  - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
+asarUnpack:
+  - resources/**
+win:
+  executableName: MCP-Studio
+  icon: build/icon.ico
+  target:
+    - target: nsis
+      arch:
+        - x64
+    - target: portable
+      arch:
+        - x64
+    - target: dir
+      arch:
+        - x64
+nsis:
+  artifactName: MCP-Studio-Setup-${version}.${ext}
+  shortcutName: ${productName}
+  uninstallDisplayName: ${productName}
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: false
+  differentialPackage: false
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico
+  include: build/installer.nsh
+portable:
+  artifactName: MCP-Studio-Portable-${version}.${ext}
+mac:
+  icon: build/icon.png
+  artifactName: MCP-Studio-${version}-${arch}.${ext}
+  entitlementsInherit: build/entitlements.mac.plist
+  target:
+    - target: dmg
+      arch:
+        - x64
+        - arm64
+    - target: zip
+      arch:
+        - x64
+        - arm64
+  extendInfo:
+    - NSDocumentsFolderUsageDescription: Application requests access to the user's Documents folder.
+    - NSDownloadsFolderUsageDescription: Application requests access to the user's Downloads folder.
+  notarize: false
+dmg:
+  artifactName: MCP-Studio-${version}-${arch}.${ext}
+linux:
+  icon: build/icon.png
+  artifactName: MCP-Studio-${version}.${ext}
+  target:
+    - AppImage
+    - deb
+  maintainer: Alexandr Motologa
+  category: Development
+publish:
+  provider: github
+  owner: alexandrmotologa
+  repo: mcp-studio
+
+

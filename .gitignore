@@ -1,22 +1,13 @@
-# Node & Build
-node_modules/
-dist/
-out/
-.env
-.env.*
-*.log
-npm-debug.log*
-
-# OS Files
-Thumbs.db
+node_modules
 .DS_Store
-desktop.ini
-
-# IDEs
-.idea/
-.vscode/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+dist
+dist-electron
+out
+release
+*.local
+.env
+.env.local
+*.tsbuildinfo
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
