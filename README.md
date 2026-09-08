@@ -6,9 +6,9 @@
 
 ### The Ultimate Desktop IDE, Inspector & Testing Platform for Model Context Protocol (MCP)
 
-[![Release](https://img.shields.io/badge/release-v2.1.6-indigo.svg)](https://github.com/alexandrmotologa/mcp-studio/releases)
+[![Release](https://img.shields.io/badge/release-v2.1.8-indigo.svg)](https://github.com/alexandrmotologa/mcp-studio/releases)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
-[![Tests](https://img.shields.io/badge/tests-50%20passing%20(9%20suites)-emerald.svg)]()
+[![Tests](https://img.shields.io/badge/tests-56%20passing%20(10%20suites)-emerald.svg)]()
 [![Electron](https://img.shields.io/badge/Electron-v34.2.0-47848F.svg?logo=electron&logoColor=white)](https://electronjs.org)
 [![React](https://img.shields.io/badge/React-v19.0.0-61DAFB.svg?logo=react&logoColor=black)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7.3-3178C6.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
@@ -19,8 +19,8 @@
 
 <br/>
 
-[![Download Windows Setup](https://img.shields.io/badge/Windows-NSIS%20Setup%20(.exe)-6366f1?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-Setup-2.1.6.exe)
-[![Download Windows Portable](https://img.shields.io/badge/Windows-Portable%20(.exe)-4f46e5?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-Portable-2.1.6.exe)
+[![Download Windows Setup](https://img.shields.io/badge/Windows-NSIS%20Setup%20(.exe)-6366f1?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-Setup-2.1.8.exe)
+[![Download Windows Portable](https://img.shields.io/badge/Windows-Portable%20(.exe)-4f46e5?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-Portable-2.1.8.exe)
 [![Download Mac Apple Silicon](https://img.shields.io/badge/macOS-Apple%20Silicon%20M%20(.dmg)-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-2.1.6-arm64.dmg)
 [![Download Mac Intel](https://img.shields.io/badge/macOS-Intel%20x64%20(.dmg)-333333?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-2.1.6-x64.dmg)
 [![Download Linux AppImage](https://img.shields.io/badge/Linux-AppImage-E95420?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-2.1.6.AppImage)
@@ -154,9 +154,16 @@ MCP Studio follows an **Open Core** architecture:
   * **15 Developer Power Tools:** Automated assertion test suites, concurrency & latency benchmarking, security sandbox auditor, in-memory mock MCP server engine, OpenAPI converter, Docker packager, remote ngrok tunnel bridge, session recorder, and workflow builder.
   * *Learn more at [https://mcp.mtlglabs.space](https://mcp.mtlglabs.space)*.
 
-## ⚡️ Complete Feature Highlights (v2.1.6)
+## ⚡️ Complete Feature Highlights (v2.1.8)
 
-### 1. 🛡️ Real-Time Remote License Sync & Universal Guard (New in v2.1.6)
+### 1. 🔔 Studio Notification Dispatcher & Multi-Event Notification Center (New in v2.1.8)
+* **Universal Event Bus:** Studio-wide `dispatchNotification` bus routing alerts, warnings, process completions, and success events from any subsystem without tight coupling.
+* **Audio Micro-Interactions:** Subtle Web Audio API chimes via `soundEngine` providing auditory confirmation on successes and errors.
+* **Interactive 4-Tab Notification Center:** Filter by `All`, `Unread`, `Processes & Tests`, or `System & License` with relative time indicators and individual card dismissals.
+* **Multi-Event Studio Wiring:** Real-time notifications for Pro license activation/revocation, background update readiness with 1-click restart, automated test suite runs, latency benchmarks, and simulator completions.
+* **API Key Vault Real-Time Synchronization:** Seamless cross-component synchronization between Settings Vault and AI Simulator with auto-filling and visual verification badges.
+
+### 2. 🛡️ Real-Time Remote License Sync & Universal Guard
 * **Real-Time Remote Demotion:** Low-impact 5-minute background heartbeat automatically checks `sync.mtlglabs.space`. Remotely revoked or refunded licenses immediately revert to Community Edition without requiring application restart.
 * **Universal Pre-Checkout Guard:** Interactive modal requires a verified email address before opening Paddle checkout, preventing orphaned transactions and locking the buyer's email in the checkout overlay.
 * **Self-Service Key Retrieval Portal:** Instant multi-key retrieval portal allowing customers to look up and restore all active license keys by email.
