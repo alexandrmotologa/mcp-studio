@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 import {
-  Terminal,
   Search,
   Layers,
   Cpu,
@@ -103,9 +102,13 @@ export const Header: React.FC<HeaderProps> = React.memo(({
       {/* 1. Left: Brand & Search Omnibar */}
       <div className="flex items-center gap-2.5 sm:gap-3 flex-shrink-0 min-w-0">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-cyan-500 flex items-center justify-center shadow-md shadow-indigo-500/25 ring-1 ring-white/20 shrink-0 relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/15 to-transparent pointer-events-none" />
-            <Terminal className="w-4 h-4 text-white font-bold relative z-10" />
+          <div className="w-8 h-8 rounded-xl bg-studio-950 border border-studio-border p-1 shadow-md shadow-indigo-500/10 shrink-0 flex items-center justify-center relative overflow-hidden group hover:border-indigo-500/50 transition-colors">
+            <svg className="w-full h-full" viewBox="0 0 160 160" fill="none">
+              <path d="M60 54L38 80L60 106" stroke="#6366F1" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M100 54L122 80L100 106" stroke="#06B6D4" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M68 80H92" stroke="#FFFFFF" strokeWidth="12" strokeLinecap="round"/>
+              <circle cx="80" cy="80" r="5" fill="#8B5CF6"/>
+            </svg>
           </div>
           <div className="hidden sm:flex items-center gap-1.5">
             <span className="font-bold tracking-tight studio-brand-title text-sm whitespace-nowrap">
