@@ -1,10 +1,10 @@
-# MCP Studio 🚀
+# MCP Studio
 
 <div align="center">
 
 ![MCP Studio Banner](https://raw.githubusercontent.com/alexandrmotologa/mcp-studio/main/icon.png)
 
-### The Ultimate Desktop IDE, Inspector & Testing Platform for Model Context Protocol (MCP)
+### Desktop development environment, inspector, and testing platform for the Model Context Protocol (MCP)
 
 [![Release](https://img.shields.io/badge/release-v2.1.8-indigo.svg)](https://github.com/alexandrmotologa/mcp-studio/releases)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
@@ -15,7 +15,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Architecture](https://img.shields.io/badge/Architecture-Open%20Core-blueviolet.svg)](https://mcp.mtlglabs.space)
 
-[🌐 Official Website](https://mcp.mtlglabs.space) • [🏢 MTLG Labs](https://mtlglabs.space) • [📜 Changelog](CHANGELOG.md) • [📥 Official Releases](https://github.com/alexandrmotologa/mcp-studio/releases) • [👨‍💻 Author Portfolio](https://mtlg.site) • [👔 LinkedIn](https://linkedin.com/in/alexandr-motologa)
+[Official Website](https://mcp.mtlglabs.space) • [MTLG Labs](https://mtlglabs.space) • [Changelog](CHANGELOG.md) • [Official Releases](https://github.com/alexandrmotologa/mcp-studio/releases) • [Author Portfolio](https://mtlg.site) • [LinkedIn](https://linkedin.com/in/alexandr-motologa)
 
 <br/>
 
@@ -26,27 +26,27 @@
 
 ---
 
-## 🌟 Overview
+## Overview
 
-**MCP Studio** is the flagship all-in-one developer IDE, inspector, automated testing suite, and protocol visualization platform for the **Model Context Protocol (MCP)**. Think of it as **Postman + Swagger + Fiddler** built specifically for AI agents, server architects, and tool creators.
+MCP Studio is an open-source desktop application for developing, testing, and debugging servers that implement the Model Context Protocol (MCP).
 
-Whether you're developing local MCP servers in **Python (FastMCP)**, **TypeScript (`@modelcontextprotocol/sdk`)**, **Go**, or **Rust** (`stdio` transport) or orchestrating production microservices over remote **HTTP/SSE**, MCP Studio delivers complete protocol visibility, real-time debugging, and automated developer tooling.
+It works with local servers running over standard input and output (`stdio`) in Python, TypeScript, Go, or Rust, as well as remote servers using HTTP Server-Sent Events (`SSE`). It provides dynamic forms generated from tool schemas, live JSON-RPC traffic inspection, process logs, and configuration discovery for desktop AI clients like Claude Desktop and Cursor.
 
 ---
 
-## 🗺️ Architecture & Protocol Ecosystem
+## Architecture
 
 <div align="center">
 
-![MCP Studio Architectural Ecosystem](https://raw.githubusercontent.com/alexandrmotologa/mcp-studio/main/assets/mcp_architecture.jpg)
+![MCP Studio Architecture](https://raw.githubusercontent.com/alexandrmotologa/mcp-studio/main/assets/mcp_architecture.jpg)
 
 </div>
 
-MCP Studio sits between your AI clients (Claude Desktop, Cursor, Windsurf, local LLMs) and your target servers (PostgreSQL, Filesystem, GitHub, custom APIs, Docker containers), giving you total control and observability over the protocol flow:
+MCP Studio acts as a client or inspection layer between AI applications and target MCP servers:
 
 ```mermaid
 flowchart LR
-    subgraph AI_Clients["AI IDEs & Clients"]
+    subgraph AI_Clients["AI Clients & Hosts"]
         direction TB
         Claude["Claude Desktop"]
         Cursor["Cursor IDE"]
@@ -56,17 +56,17 @@ flowchart LR
 
     subgraph MCP_Studio["MCP Studio Engine"]
         direction TB
-        Inspector["🔍 Dynamic Tool Inspector"]
-        Visualizer["📊 Multi-View Visualizer"]
-        Traffic["⚡ Real-Time Traffic Bus"]
-        Notifications["🔔 Notification Dispatcher"]
+        Inspector["Tool Inspector"]
+        Visualizer["Response Visualizer"]
+        Traffic["JSON-RPC Traffic Stream"]
+        Notifications["Notification Dispatcher"]
     end
 
     subgraph Servers["MCP Servers (Stdio & SSE)"]
         direction TB
         DB["PostgreSQL / SQLite"]
-        FS["Filesystem / Local OS"]
-        GH["GitHub / Git APIs"]
+        FS["Filesystem"]
+        GH["GitHub API"]
         Custom["Custom Microservices"]
     end
 
@@ -76,10 +76,10 @@ flowchart LR
 
 ---
 
-## 📸 Visual Workspace Tour
+## Workspace Overview
 
-### 1. Interactive Tool Inspector & Live Response Visualizer
-Inspect schemas, execute tools with dynamic input forms, generate smart mock data with 1 click, and view results in JSON Tree, Smart Data Tables, or Markdown preview:
+### 1. Tool inspector and response visualizer
+Inspect schemas, execute tools using dynamic input forms, generate mock inputs, and view responses formatted as JSON trees, tables, or rendered markdown:
 
 <div align="center">
 
@@ -87,8 +87,8 @@ Inspect schemas, execute tools with dynamic input forms, generate smart mock dat
 
 </div>
 
-### 2. Live JSON-RPC Traffic Bus & Packet Inspector
-Monitor incoming and outgoing JSON-RPC 2.0 frames with millisecond timestamps, request-response correlation, latency benchmarks, and replay capabilities:
+### 2. Live JSON-RPC traffic stream
+Review incoming and outgoing JSON-RPC 2.0 messages with millisecond timestamps, request and response matching, latency measurements, and packet replay:
 
 <div align="center">
 
@@ -96,8 +96,8 @@ Monitor incoming and outgoing JSON-RPC 2.0 frames with millisecond timestamps, r
 
 </div>
 
-### 3. Multi-LLM AI Agent Simulator & Benchmark Arena (Pro Feature Preview)
-Test how frontier LLMs (Claude 3.7 Sonnet, GPT-4o, DeepSeek, and local Ollama) interact with your tools in real-time, view reasoning traces, and measure latency:
+### 3. Multi-LLM agent simulator (Pro capability)
+Test how models (including Claude, GPT-4o, DeepSeek, and local Ollama models) select and call your tools, inspect argument payloads, and view step-by-step reasoning:
 
 <div align="center">
 
@@ -105,8 +105,8 @@ Test how frontier LLMs (Claude 3.7 Sonnet, GPT-4o, DeepSeek, and local Ollama) i
 
 </div>
 
-### 4. Developer Power Toolkit (Pro Feature Preview)
-Built-in Schema Validator, Code Generator (Python, TS, Go, Rust), Curl Exporter, Server Scaffolder, and Security Auditing suite:
+### 4. Developer toolkit (Pro capability)
+Built-in utilities for schema validation, client code generation, server scaffolding, automated test suites, and security analysis:
 
 <div align="center">
 
@@ -116,82 +116,81 @@ Built-in Schema Validator, Code Generator (Python, TS, Go, Rust), Curl Exporter,
 
 ---
 
-## 🎯 Why MCP Studio?
+## Comparison
 
-| Problem | Without MCP Studio | With MCP Studio |
+| Workflow Step | Without MCP Studio | With MCP Studio |
 | :--- | :--- | :--- |
-| **Testing Tools** | Restart Claude or Cursor every time code changes | ⚡ 1-Click Hot-Restart directly in Studio |
-| **Inspecting Traffic** | Guessing JSON-RPC payloads in terminal noise | 🔍 Packet-level traffic bus with search, filters & diff |
-| **Form Inputs** | Hand-writing JSON objects for nested parameters | 🎲 Dynamic auto-generated forms with Faker auto-fill |
-| **Response Analysis** | Parsing raw text dumps in console | 📊 Interactive JSON Trees & Smart Sortable Tables |
-| **Client Integration** | Writing integration code from scratch | 📋 1-Click export to Python, TS, cURL, Go, Rust |
-| **Event Visibility** | Silent background tasks & unobserved processes | 🔔 Notification Dispatcher with Audio FX & Center |
+| **Testing tool changes** | Restart client applications whenever server code updates | Restart the server subprocess directly in the interface |
+| **Traffic inspection** | Parse stdout prints mixed with terminal logs | View JSON-RPC messages with method filtering and diffing |
+| **Input parameters** | Construct JSON objects manually in code or prompts | Use generated input forms derived from the tool schema |
+| **Response formatting** | Read unformatted console text | View outputs in JSON tree, table, or markdown formats |
+| **Client integration** | Write client call logic manually from memory | Copy ready-to-run code for Python, TypeScript, cURL, Go, and Rust |
+| **Event tracking** | Rely on silent background execution without status cues | Central notification center with optional audio feedback |
 
 ---
 
-## ⚡️ Complete Feature Highlights (v2.1.8)
+## Features
 
-### 1. 🔔 Studio Notification Dispatcher & Multi-Event Notification Center (New in v2.1.8)
-* **Universal Event Bus:** Studio-wide `dispatchNotification` bus routing alerts, warnings, process completions, and success events from any subsystem without tight coupling.
-* **Audio Micro-Interactions:** Subtle Web Audio API sound synthesis via `soundEngine.ts` providing immediate auditory confirmation on successes and errors.
-* **Interactive 4-Tab Notification Center:** Filter notifications by `All`, `Unread`, `Processes & Tests`, and `System & License` with relative time indicators (`Just now`, `5m ago`) and individual card dismissals.
-* **Multi-Event Integration:** Instant reactive notifications for server connection states, discovery imports, background update readiness with 1-click restart, and process executions.
+### Tool execution and schema inspection
+* **Dynamic form generator:** Analyzes tool JSON schema definitions into typed input forms with field validation and keyboard execution (`Ctrl+Enter`).
+* **Mock data auto-fill:** Generates sample inputs automatically based on parameter names (such as email, uuid, path, timestamp, and limit).
+* **Multi-view visualizer:**
+  * Interactive JSON tree with expandable nodes and path copying.
+  * Table view for tabular data, with column sorting and search.
+  * Markdown preview for formatted text output.
+  * Media renderer for base64 images and files.
+* **Code snippet generator:** Exports execution snippets in Python (`mcp.ClientSession`), TypeScript, cURL, Go, and Rust.
+* **Process console drawer:** Displays real-time stdout and stderr output from server child processes.
 
-### 2. 🔍 Dynamic Tool Inspection & Smart Mocking
-* **Dynamic Form Generator:** Automatically analyzes JSON Schema property definitions into interactive input forms with validation and `Ctrl+Enter` immediate execution.
-* **🎲 Smart Mock Data Auto-Filler:** Intelligent Faker heuristics analyzing parameter keywords (`email`, `sql`, `uuid`, `path`, `timestamp`, `name`, `limit`, etc.) to auto-populate forms in 1 click.
-* **Multi-View Response Visualizer:**
-  * 🌲 **Interactive JSON Tree View:** Expandable nodes with syntax highlighting and 1-click path copying.
-  * 📊 **Smart Table View:** Auto-detects arrays of objects (SQL queries, API responses) with instant search and column sorting.
-  * 📝 **Markdown Previewer:** Rich formatted preview for markdown and text outputs.
-  * 🖼️ **Base64 Media & File Viewer:** Visual rendering for base64 images, PDFs, and assets with 1-click download.
-* **Client Code Snippets Generator:** Generates copy-pasteable client execution code in **Python (`mcp.ClientSession`)**, **TypeScript**, **cURL (JSON-RPC 2.0)**, **Go (`mcp-go`)**, and **Rust (`mcp-sdk-rs`)**.
-* **Live Process Console Drawer:** Real-time terminal capturing `stdout` and `stderr` stream output from child processes with hot-restart capabilities.
+### Real-time JSON-RPC 2.0 traffic stream
+* **Packet inspector:** Records all incoming and outgoing frames with millisecond timestamps and method filters (`tools/list`, `tools/call`, `resources/list`, etc.).
+* **Side-by-side diff:** Compares two frames side by side to diagnose payload regressions between calls.
+* **Packet replay:** Loads a recorded `tools/call` message back into the Tool Inspector with its original arguments.
 
-### 3. ⚡ Real-Time JSON-RPC 2.0 Traffic Bus
-* **Packet-Level Inspector:** Monitors all incoming and outgoing frames with millisecond timestamps and method filters (`tools/list`, `tools/call`, `resources/list`, etc.).
-* **Side-by-Side JSON Diff Tool:** Compare any two JSON-RPC packets side-by-side to diagnose schema drift or payload regressions.
-* **1-Click Packet Replay:** Instantly re-inject recorded tool executions back into the Tool Inspector with pre-populated arguments.
+### Server management and auto-discovery
+* **Client auto-discovery:** Reads existing server definitions from Claude Desktop and Cursor configurations on the local machine.
+* **Auto-reconnect watchdog:** Restarts crashed subprocesses using exponential backoff (2s, 5s, 10s up to 3 attempts), while ignoring intentional user disconnects.
+* **Server limit:** The Community Edition runs one active server at a time, with guidance for managing server lists.
 
-### 4. 🛡️ Server Management, Watchdog & Auto-Discovery
-* **Auto-Discovery Scanner:** Automatically scans and imports local MCP server configurations from Claude Desktop and Cursor.
-* **Automatic Reconnect Watchdog:** Process supervisor with exponential backoff capturing subprocess crashes with real-time UI status updates.
-* **Multi-Layer Limit Enforcement:** Seamless single-server orchestration for Community Edition with graceful upgrade guidance.
+### Notification center and event routing
+* **Studio event bus:** Central dispatcher for process status updates, test completions, background updates, and warnings.
+* **Notification center:** Filter alerts across four categories (All, Unread, Processes & Tests, System) with one-click dismiss and action buttons.
+* **Audio cues:** Plays optional short audio tones for successful operations and errors.
 
-### 5. 🎨 Design, Ergonomics & Themes
-* **Modern 3-Zone Linear-Style Header:** Clean brand identity, omnibar search, workspace controls, and status deck.
-* **7 Handcrafted Themes:** Cyberpunk Indigo, Midnight OLED True Black, Emerald Matrix, Dracula Slate, Nordic Clean Light, GitHub Crisp White, Solarized Warm Cream.
-* **Global Command Palette (`Ctrl+K`):** Fast keyboard-first search across all tools, resources, prompts, servers, and power actions.
+### Interface and controls
+* **Navigation header:** Quick access to server selection, global search, and workspace tabs.
+* **Themes:** Includes 7 color themes covering light, dark, and high-contrast modes.
+* **Command palette (`Ctrl+K`):** Search across all tools, resources, prompts, and server actions.
 
 ---
 
-## 🏗️ Open Core Architecture & Feature Matrix
+## Open Core Architecture
 
-MCP Studio follows a transparent **Open Core** model:
+MCP Studio follows an Open Core model:
 
-| Feature Capability | Community Edition (MIT Open Source) | Official Releases (Freemium + Pro) |
+| Capability | Community Edition (MIT Open Source) | Official Build (with Pro) |
 | :--- | :---: | :---: |
-| **License** | **MIT (100% Free & Open)** | Free with Optional Pro Upgrade |
-| **Local Stdio & Remote SSE Servers** | ✅ 1 Active Server | ✅ Unlimited Multi-Server (100+) |
-| **Dynamic JSON Schema Forms** | ✅ Full Support | ✅ Full Support |
-| **Smart Faker Mock Data Auto-Fill** | ✅ Included | ✅ Included |
-| **Multi-View Visualizer (Tree, Table, Markdown)** | ✅ Included | ✅ Included |
-| **Client Code Snippet Generator (5 Languages)** | ✅ Included | ✅ Included |
-| **JSON-RPC Traffic Bus & Replay** | ✅ Included | ✅ Included |
-| **Studio Notification Center & Dispatcher** | ✅ Included | ✅ Included |
-| **Claude & Cursor Config Auto-Discovery** | ✅ Included | ✅ Included |
-| **Process Stderr/Stdout Live Console** | ✅ Included | ✅ Included |
-| **7 Handcrafted UI Themes & Audio FX** | ✅ Included | ✅ Included |
-| **Multi-LLM AI Agent Simulator (Claude, GPT, Ollama)** | 💎 Pro Capability | ✅ Built-in Multi-Turn Loop |
-| **AI Model Arena Shootout** | 💎 Pro Capability | ✅ Side-by-Side Benchmarking |
-| **15 Developer Power Tools Suite** | 💎 Pro Capability | ✅ Test Suites, Mock Server, Docker |
-| **Autonomous Test Suites & Latency Benchmarker** | 💎 Pro Capability | ✅ Full Assertion Engine |
+| **License** | **MIT (Free & Open Source)** | Commercial (Free tier + Pro upgrade) |
+| **Stdio & SSE servers** | 1 Active server | Unlimited concurrent servers |
+| **Dynamic JSON schema forms** | Included | Included |
+| **Mock data auto-fill** | Included | Included |
+| **Multi-view visualizer (Tree, Table, Markdown)** | Included | Included |
+| **Client code generation (5 languages)** | Included | Included |
+| **JSON-RPC traffic stream, diff & replay** | Included | Included |
+| **Notification center & event bus** | Included | Included |
+| **Claude & Cursor configuration auto-discovery** | Included | Included |
+| **Process stdout/stderr console drawer** | Included | Included |
+| **UI themes & audio feedback** | Included | Included |
+| **Multi-LLM agent simulator (Claude, GPT, Ollama)** | Available in Pro | Included with autonomous loops |
+| **Model arena comparison** | Available in Pro | Included |
+| **15 developer power tools** | Available in Pro | Included (test suites, mock server, Docker) |
+| **Automated test suites & latency benchmarks** | Available in Pro | Included |
 
-*Learn more about Pro capabilities at [https://mcp.mtlglabs.space/pricing](https://mcp.mtlglabs.space/pricing).*
+Details on Pro capabilities are available on the [pricing page](https://mcp.mtlglabs.space/pricing).
 
 ---
 
-## 🛠️ Developing & Building from Source
+## Developing & Building from Source
 
 ### Prerequisites
 * **Node.js**: `>= 20.0.0` (Node 22 recommended)
@@ -207,7 +206,7 @@ cd mcp-studio
 # 2. Install dependencies
 npm install
 
-# 3. Launch in development mode with Electron + Vite Hot-Reload
+# 3. Launch in development mode with Electron and Vite hot reload
 npm run dev
 
 # 4. Run automated test suites (36 unit tests)
@@ -217,34 +216,34 @@ npm test
 npm run typecheck
 
 # 6. Package desktop binaries locally
-npm run build:win   # Windows NSIS Installer (.exe) & Portable (.exe)
+npm run build:win   # Windows NSIS installer (.exe) and portable (.exe)
 npm run build:mac   # macOS DMG (.dmg)
-npm run build:linux # Linux AppImage & Debian (.deb)
+npm run build:linux # Linux AppImage and Debian (.deb)
 ```
 
 ---
 
-## 📂 Repository Structure
+## Repository Structure
 
 ```
 mcp-studio/
-├── .github/workflows/test.yml     # Automated CI test workflow (Lint, Typecheck, Vitest)
+├── .github/workflows/test.yml     # CI test workflow (Lint, Typecheck, Vitest)
 ├── build/                         # App icons, macOS entitlements, NSIS scripts
-├── docs/                          # Public changelog, release notes, landing mirrors
-├── assets/                        # High-resolution workspace screenshots & diagrams
+├── docs/                          # Public changelog, release notes, documentation
+├── assets/                        # Workspace screenshots and diagrams
 ├── src/
 │   ├── main/                      # Electron Main Process (Node.js)
 │   │   ├── ipc/                   # Modular IPC handlers (MCP, Storage, System)
-│   │   ├── mcp/                   # McpClientManager & auto-discovery engine
-│   │   ├── storage/               # Atomic storage engine & backup recovery
+│   │   ├── mcp/                   # McpClientManager and auto-discovery engine
+│   │   ├── storage/               # Atomic storage engine and backup recovery
 │   │   └── ee/                    # Community stubs for Pro extension points
 │   ├── preload/                   # Electron ContextBridge with typed window.api
 │   ├── renderer/                  # React 19 Frontend (TailwindCSS + Lucide)
 │   │   ├── src/components/        # UI components (ToolInspector, TrafficInspector, etc.)
 │   │   ├── src/utils/             # NotificationDispatcher, SoundEngine, MockDataGenerator
-│   │   └── src/ee/                # Community UI stubs & upsell components
+│   │   └── src/ee/                # Community UI stubs and upsell components
 │   └── shared/                    # Shared TypeScript protocol definitions
-├── tests/                         # 7 Vitest test suites (36 passing tests)
+├── tests/                         # Vitest test suites
 ├── package.json                   # MIT open-source configuration
 ├── electron.vite.config.ts        # Electron-Vite configuration
 └── LICENSE                        # MIT License
@@ -252,7 +251,7 @@ mcp-studio/
 
 ---
 
-## 📥 Downloads & Official Releases
+## Downloads & Official Releases
 
 Pre-compiled desktop installer binaries are hosted on GitHub Releases and the official portal:
 * **[Download Latest Release (GitHub Releases)](https://github.com/alexandrmotologa/mcp-studio/releases)**
@@ -260,7 +259,7 @@ Pre-compiled desktop installer binaries are hosted on GitHub Releases and the of
 
 ---
 
-## 👨‍💻 Authors & Organization
+## Authors & Organization
 
 * **Lead Architect:** [Alexandr Motologa](https://mtlg.site) ([LinkedIn](https://linkedin.com/in/alexandr-motologa) • [GitHub](https://github.com/alexandrmotologa))
 * **Organization:** [MTLG Labs](https://mtlglabs.space)
@@ -269,6 +268,6 @@ Pre-compiled desktop installer binaries are hosted on GitHub Releases and the of
 
 ---
 
-## 📄 License
+## License
 
 The MCP Studio Community Edition source code is open-source software licensed under the **[MIT License](LICENSE)**.

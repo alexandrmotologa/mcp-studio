@@ -7,96 +7,97 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [2.1.8] — 2026-09-08
+## [2.1.8] - 2026-09-08
 
-### 🔔 Studio Notification Dispatcher & Multi-Event Notification Center
-- **Universal Notification Dispatcher:** Decoupled `dispatchNotification` event bus using `CustomEvent('studio:notification')` and unique `crypto.randomUUID()` identifiers.
-- **Audio Feedback Integration:** Built-in Web Audio API micro-interaction chimes via `soundEngine.ts` (`playSuccessSound` / `playErrorSound`).
-- **Interactive Notification Center:** 4 filter tabs (`All`, `Unread`, `Processes & Tests`, `System & License`), relative time indicators (`Just now`, `5s ago`, `2m ago`, `1h ago`), individual notification dismissal `(X)`, and inline 1-click action buttons (`Restart Now`, `Open Settings`, `Open License`, `View Tools`).
-- **Multi-Event Studio Wiring:**
-  - **License:** Real-time notifications on Pro activation, failure, and key revocation/deactivation.
-  - **Auto-Updater:** Notifies when an update is available or downloaded and ready to install with 1-click restart.
-  - **Autonomous Tools:** Emits notifications on Automated Test Suite completion (test counts & duration), Concurrency Benchmark finish (RPS throughput & latency), and AI Agent Simulation runs (message count & tool calls).
-  - **Server Lifecycle:** Connection success with tool/resource/prompt counts, disconnect, auto-reconnect watchdog, and Cursor/Claude config imports.
-  - **Settings & Vault:** Confirmation on API key vault and engine timeout save.
-- **Persistence:** Capped 100-item array persisted in `localStorage` (`mcp_studio_notifications_v1`).
-
----
-
-## [2.1.7] — 2026-09-08
-
-### 🔑 API Key Vault Real-Time Synchronization & Simulator Auto-Fill
-- **Key Harmonization:** Aligned `SETTINGS_KEY` (`mcp_studio_global_settings_v1`) across `SettingsModal.tsx`, `AiSimulator.tsx`, and `OnboardingModal.tsx` with backward-compatible fallback.
-- **Real-Time Cross-Component Sync:** Immediate `mcp:settings-updated` and `storage` event broadcast on settings save so the AI Simulator instantly picks up saved keys without requiring page refreshes or tab switching.
-- **Simulator Visual Feedback:** Added an emerald `✓ Vault Active` badge and auto-fill status in the Simulator sidebar with a 1-click `[Vault]` navigation link.
-- **Preference Persistence:** Persisted selected LLM provider and model across application restarts.
+### Studio Notification Dispatcher and Notification Center
+- **Notification dispatcher:** Decoupled `dispatchNotification` event bus using `CustomEvent('studio:notification')` and unique `crypto.randomUUID()` identifiers.
+- **Audio feedback:** Web Audio API sound cues via `soundEngine.ts` (`playSuccessSound`, `playErrorSound`).
+- **Notification center:** Filter tabs (`All`, `Unread`, `Processes & Tests`, `System & License`), relative time indicators, individual notification dismissal, and inline action buttons (`Restart Now`, `Open Settings`, `Open License`, `View Tools`).
+- **Event connections:**
+  - **License:** Real-time notifications on Pro activation, failure, and key revocation or deactivation.
+  - **Auto-updater:** Notifications when an update is available or downloaded and ready to install.
+  - **Automated tools:** Notifications on Automated Test Suite completion, Concurrency Benchmark finish, and AI Agent Simulation runs.
+  - **Server lifecycle:** Connection status with tool, resource, and prompt counts, disconnects, auto-reconnect attempts, and configuration imports.
+  - **Settings:** Confirmation on API key vault and timeout saves.
+- **Persistence:** Capped 100-item notification array persisted in `localStorage` (`mcp_studio_notifications_v1`).
 
 ---
 
-## [2.1.6] — 2026-09-08
+## [2.1.7] - 2026-09-08
 
-### 🛡️ Real-Time License Demotion & Backward Compatibility
-- **Serverless Verification Contract:** Updated `/api/verify` in `sync.mtlglabs.space` to return `HTTP 200 OK` with `{ success: false, valid: false, revoked: true }` upon remote license revocation or deletion. This ensures full backward compatibility with previously installed desktop versions, which will now instantly execute local demotion back to Community Edition without treating 403 as a network glitch.
-- **Immediate Local Demotion:** When a revoked license is received, `LicenseManager` purges encrypted local credentials and emits `license:status-changed` to all windows.
-- **Heartbeat Check:** Desktop application maintains a low-impact 5-minute background heartbeat to detect administrative changes.
-- **Automatic Refund Revocation:** Webhook automatically detects `adjustment.created` and `adjustment.updated` events from Paddle, maps the refunded transaction ID to its license, and marks it permanently revoked.
-
-### 💳 Universal Pre-Checkout Guard & UX Polish
-- **Interactive Pre-Checkout Modal:** Added an interactive modal across all entry points (Hero buttons, Pricing cards, nav actions) requiring users to enter a validated email address before Paddle checkout can open.
-- **Field Lock in Checkout (`allowLogout: false`):** Paddle checkout is initialized with `allowLogout: false` and prefilled `customer.email`, preventing accidental alterations to the verified buyer email during payment.
-- **Clean Pricing Card:** Removed redundant inline input from the pricing card for a cleaner, modern presentation.
+### API Key Vault Synchronization and Simulator Auto-Fill
+- **Key harmonization:** Aligned `SETTINGS_KEY` (`mcp_studio_global_settings_v1`) across `SettingsModal.tsx`, `AiSimulator.tsx`, and `OnboardingModal.tsx` with backward-compatible fallback.
+- **Cross-component sync:** Broadcasts `mcp:settings-updated` and `storage` events on settings save so the AI Simulator uses updated keys without page reloads or tab switches.
+- **Simulator vault feedback:** Added a vault status badge and auto-fill indicator in the Simulator sidebar with a navigation link to Settings.
+- **Preference persistence:** Persisted selected LLM provider and model across application restarts.
 
 ---
 
-## [2.1.5] — 2026-09-07
+## [2.1.6] - 2026-09-08
 
-### 🔑 Multi-Key Self-Service Retrieval & Telemetry
-- **Key Retrieval Portal:** Added a self-service modal on the landing and pricing pages allowing customers to retrieve all active license keys by verifying their purchase email.
-- **Client Telemetry:** App transmits platform and version metadata upon activation for reliable administrative analytics.
-- **Defensive Webhook Pipeline:** Webhook parser handles raw stream buffers safely for HMAC-SHA256 signature verification.
+### License Demotion and Compatibility
+- **Verification contract:** Updated `/api/verify` in `sync.mtlglabs.space` to return `HTTP 200 OK` with `{ success: false, valid: false, revoked: true }` upon remote license revocation or deletion, allowing previous versions to demote gracefully to Community Edition.
+- **Local demotion:** When a revoked license is received, `LicenseManager` purges encrypted local credentials and emits `license:status-changed` to open windows.
+- **Heartbeat check:** Desktop application maintains a 5-minute background heartbeat to check license validity.
+- **Refund webhook handling:** Webhook detects `adjustment.created` and `adjustment.updated` events from Paddle, maps refunded transaction IDs, and marks licenses as revoked.
 
----
-
-## [2.1.4] — 2026-09-07
-
-### ⚡ Checkout Binding
-- **Dynamic Config Route:** Added `/api/paddle-config` delivering public Paddle tokens dynamically.
-- **CustomData Binding:** Embedded customer email into Paddle transaction `customData` payload.
+### Pre-Checkout Validation
+- **Pre-checkout modal:** Validates customer email addresses before opening the Paddle checkout overlay.
+- **Email field locking:** Initializes Paddle checkout with `allowLogout: false` and prefilled email to prevent mismatched buyer addresses during checkout.
+- **Pricing card cleanup:** Removed redundant inline input from the pricing card.
 
 ---
 
-## [2.1.3] — 2026-09-07
+## [2.1.5] - 2026-09-07
 
-### 🚀 Complete Multi-Platform Suite & Distribution
+### Self-Service Key Retrieval and Telemetry
+- **Key retrieval modal:** Self-service modal on the landing and pricing pages allowing customers to retrieve active license keys by email verification.
+- **Client telemetry:** Client transmits platform and version metadata upon activation for administrative diagnostics.
+- **Webhook handling:** Webhook parser handles raw stream buffers for HMAC-SHA256 signature verification.
+
+---
+
+## [2.1.4] - 2026-09-07
+
+### Checkout Configuration
+- **Dynamic config route:** Added `/api/paddle-config` delivering public Paddle tokens dynamically.
+- **Metadata binding:** Embedded customer email into Paddle transaction `customData` payload.
+
+---
+
+## [2.1.3] - 2026-09-07
+
+### Multi-Platform Distribution
 - **Windows:** Setup installer (`MCP-Studio-Setup-2.1.3.exe`) and portable executable (`MCP-Studio-Portable-2.1.3.exe`).
-- **macOS:** Apple Silicon (`arm64`) and Intel (`x64`) DMG/ZIP archives.
-- **Linux:** Standalone AppImage and Debian/Ubuntu `.deb` packages.
-- **NSIS Setup Wizard UX Fix:** Added clean directory confirmation and visible extraction progress bar.
+- **macOS:** Apple Silicon (`arm64`) and Intel (`x64`) DMG and ZIP archives.
+- **Linux:** AppImage and Debian/Ubuntu `.deb` packages.
+- **NSIS installer:** Added directory confirmation and extraction progress bar.
 
 ---
 
-## [2.1.2] — 2026-09-06
+## [2.1.2] - 2026-09-06
 
-### 🛡️ Server Limits & Conversion Guidance
-- **Visual Gating:** Servers beyond Community Edition limit (1 active server) display `[ 🔒 PRO ]` badges.
-- **Conversion Dialog:** Clear guidance modal clarifying single-server development with upgrade options.
-
----
-
-## [2.1.0] — 2026-09-05
-
-### 🌟 Luxury Guided Onboarding
-- **4-Step Welcome Tour:** Interactive guide explaining MCP architecture, server hubs, and power tools.
-- **Local Ollama Health Ping:** Instant connection detection on `127.0.0.1:11434`.
-- **Inline Key Vault:** DPAPI-encrypted storage for Anthropic, OpenAI, and Google AI keys.
+### Server Limits and Guidance
+- **Limit indicator:** Servers beyond Community Edition limit (1 active server) display `[ PRO ]` badges and are disabled.
+- **Limit dialog:** Explains single-server usage with options for upgrading or removing extra servers.
 
 ---
 
-## [2.0.0] — 2026-09-01
+## [2.1.0] - 2026-09-05
 
-### 🎉 Initial Open Core Release
-- **Core MCP Client:** Full-featured client supporting Stdio and remote SSE transports.
-- **Dynamic Schema Form Generator:** Automatic form generation from JSON Schema with validation.
-- **Smart Mock Data:** 1-Click parameter generation based on Faker heuristics.
-- **Response Visualizer:** JSON Tree, Smart Data Tables, Markdown Previewer, and Base64 Media Viewer.
-- **15 Power Tools:** Multi-LLM simulator, benchmark arena, assertion testing, traffic logger, and code generators.
+### First-Run Guided Onboarding
+- **Onboarding tour:** Step-by-step guide explaining MCP architecture, server configuration, and developer tools.
+- **Local Ollama ping:** Connection check against `127.0.0.1:11434`.
+- **Credential vault:** Operating system encrypted storage for Anthropic, OpenAI, and Google AI keys.
+
+---
+
+## [2.0.0] - 2026-09-01
+
+### Initial Open Core Release
+- **MCP client:** Client supporting Stdio and remote SSE transports.
+- **Schema form generator:** Form generation from tool JSON schema with field validation.
+- **Mock data:** Sample input generator based on parameter names.
+- **Response visualizer:** JSON tree, data tables, markdown previewer, and base64 media viewer.
+- **Developer tools:** Multi-LLM simulator, model comparison, assertion testing, traffic logger, and code snippet generators.
+
