@@ -2,13 +2,15 @@
 
 <div align="center">
 
-![MCP Studio Banner](https://raw.githubusercontent.com/alexandrmotologa/mcp-studio/main/icon.png)
+<a href="https://mcp.mtlglabs.space">
+  <img src="https://raw.githubusercontent.com/alexandrmotologa/mcp-studio/main/icon.png" alt="MCP Studio Logo" width="128" height="128" />
+</a>
 
-### Desktop development environment, inspector, and testing platform for the Model Context Protocol (MCP)
+## Desktop development environment, inspector, and testing platform for the Model Context Protocol (MCP)
 
 [![Release](https://img.shields.io/badge/release-v2.1.8-indigo.svg)](https://github.com/alexandrmotologa/mcp-studio/releases)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
-[![Tests](https://img.shields.io/badge/tests-36%20passing%20(7%20suites)-emerald.svg)]()
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/alexandrmotologa/mcp-studio)
+[![Tests](https://img.shields.io/badge/tests-36%20passing%20(7%20suites)-emerald.svg)](tests)
 [![Electron](https://img.shields.io/badge/Electron-v34.2.0-47848F.svg?logo=electron&logoColor=white)](https://electronjs.org)
 [![React](https://img.shields.io/badge/React-v19.0.0-61DAFB.svg?logo=react&logoColor=black)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7.3-3178C6.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
@@ -79,6 +81,7 @@ flowchart LR
 ## Workspace Overview
 
 ### 1. Tool inspector and response visualizer
+
 Inspect schemas, execute tools using dynamic input forms, generate mock inputs, and view responses formatted as JSON trees, tables, or rendered markdown:
 
 <div align="center">
@@ -88,6 +91,7 @@ Inspect schemas, execute tools using dynamic input forms, generate mock inputs, 
 </div>
 
 ### 2. Live JSON-RPC traffic stream
+
 Review incoming and outgoing JSON-RPC 2.0 messages with millisecond timestamps, request and response matching, latency measurements, and packet replay:
 
 <div align="center">
@@ -97,6 +101,7 @@ Review incoming and outgoing JSON-RPC 2.0 messages with millisecond timestamps, 
 </div>
 
 ### 3. Multi-LLM agent simulator (Pro capability)
+
 Test how models (including Claude, GPT-4o, DeepSeek, and local Ollama models) select and call your tools, inspect argument payloads, and view step-by-step reasoning:
 
 <div align="center">
@@ -106,6 +111,7 @@ Test how models (including Claude, GPT-4o, DeepSeek, and local Ollama models) se
 </div>
 
 ### 4. Developer toolkit (Pro capability)
+
 Built-in utilities for schema validation, client code generation, server scaffolding, automated test suites, and security analysis:
 
 <div align="center">
@@ -132,6 +138,7 @@ Built-in utilities for schema validation, client code generation, server scaffol
 ## Features
 
 ### Tool execution and schema inspection
+
 * **Dynamic form generator:** Analyzes tool JSON schema definitions into typed input forms with field validation and keyboard execution (`Ctrl+Enter`).
 * **Mock data auto-fill:** Generates sample inputs automatically based on parameter names (such as email, uuid, path, timestamp, and limit).
 * **Multi-view visualizer:**
@@ -143,21 +150,25 @@ Built-in utilities for schema validation, client code generation, server scaffol
 * **Process console drawer:** Displays real-time stdout and stderr output from server child processes.
 
 ### Real-time JSON-RPC 2.0 traffic stream
+
 * **Packet inspector:** Records all incoming and outgoing frames with millisecond timestamps and method filters (`tools/list`, `tools/call`, `resources/list`, etc.).
 * **Side-by-side diff:** Compares two frames side by side to diagnose payload regressions between calls.
 * **Packet replay:** Loads a recorded `tools/call` message back into the Tool Inspector with its original arguments.
 
 ### Server management and auto-discovery
+
 * **Client auto-discovery:** Reads existing server definitions from Claude Desktop and Cursor configurations on the local machine.
 * **Auto-reconnect watchdog:** Restarts crashed subprocesses using exponential backoff (2s, 5s, 10s up to 3 attempts), while ignoring intentional user disconnects.
 * **Server limit:** The Community Edition runs one active server at a time, with guidance for managing server lists.
 
 ### Notification center and event routing
+
 * **Studio event bus:** Central dispatcher for process status updates, test completions, background updates, and warnings.
 * **Notification center:** Filter alerts across four categories (All, Unread, Processes & Tests, System) with one-click dismiss and action buttons.
 * **Audio cues:** Plays optional short audio tones for successful operations and errors.
 
 ### Interface and controls
+
 * **Navigation header:** Quick access to server selection, global search, and workspace tabs.
 * **Themes:** Includes 7 color themes covering light, dark, and high-contrast modes.
 * **Command palette (`Ctrl+K`):** Search across all tools, resources, prompts, and server actions.
@@ -193,6 +204,7 @@ Details on Pro capabilities are available on the [pricing page](https://mcp.mtlg
 ## Developing & Building from Source
 
 ### Prerequisites
+
 * **Node.js**: `>= 20.0.0` (Node 22 recommended)
 * **npm**: `>= 10.0.0`
 
@@ -225,7 +237,7 @@ npm run build:linux # Linux AppImage and Debian (.deb)
 
 ## Repository Structure
 
-```
+```text
 mcp-studio/
 ├── .github/workflows/test.yml     # CI test workflow (Lint, Typecheck, Vitest)
 ├── build/                         # App icons, macOS entitlements, NSIS scripts
@@ -254,6 +266,7 @@ mcp-studio/
 ## Downloads & Official Releases
 
 Pre-compiled desktop installer binaries are hosted on GitHub Releases and the official portal:
+
 * **[Download Latest Release (GitHub Releases)](https://github.com/alexandrmotologa/mcp-studio/releases)**
 * **[Official Website Download](https://mcp.mtlglabs.space)**
 
