@@ -14,9 +14,12 @@ import { CommandPalette } from './components/CommandPalette'
 import { SettingsModal, SettingsTab } from './components/SettingsModal'
 import { ConfirmDeleteModal } from './components/ConfirmDeleteModal'
 import { ServerLimitModal } from './components/ServerLimitModal'
+import { ConfigSyncModal } from './components/ConfigSyncModal'
+import { ContractTestRunnerModal } from './components/ContractTestRunnerModal'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { OnboardingModal, ONBOARDING_STORAGE_KEY } from './components/OnboardingModal'
 import { playSuccessSound, playErrorSound } from './utils/soundEngine'
+import { estimateTokens } from './utils/tokenEstimator'
 
 // Enterprise Edition Registry & Modals
 import {
@@ -108,6 +111,8 @@ export type ActiveModal =
   | 'discover'
   | 'onboarding'
   | 'serverLimit'
+  | 'configSync'
+  | 'contractTestRunner'
   | null
 
 export default function App() {
@@ -408,7 +413,14 @@ export default function App() {
 
     // 4. Listen to real-time traffic logs & console logs
     const cleanupTraffic = window.api.mcp.onTrafficLog((log) => {
-      setTrafficLogs((prev) => [...prev.slice(-499), log])
+      const stats = estimateTokens(log.payload)
+      const enrichedLog: JsonRpcLog = {
+        ...log,
+        payloadBytes: log.payloadBytes ?? stats.byteSize,
+        requestTokens: log.direction === 'outgoing' ? stats : log.requestTokens,
+        responseTokens: log.direction === 'incoming' ? stats : log.responseTokens
+      }
+      setTrafficLogs((prev) => [...prev.slice(-499), enrichedLog])
     })
 
     const cleanupConsole = window.api.mcp.onConsoleLog((log) => {
@@ -835,6 +847,8 @@ export default function App() {
         onOpenNotifications={() => setActiveModal('notification')}
         onOpenToolkit={() => setActiveModal('toolkit')}
         onOpenOnboarding={() => setActiveModal('onboarding')}
+        onOpenSyncModal={() => setActiveModal('configSync')}
+        onOpenContractTestModal={() => setActiveModal('contractTestRunner')}
         unreadNotificationsCount={unreadNotificationsCount}
       />
 
@@ -1275,6 +1289,20 @@ export default function App() {
             lockedServer={lockedServerTarget}
             totalServersCount={servers.length}
             maxAllowed={license.maxServers || 1}
+          />
+
+          <ConfigSyncModal
+            isOpen={activeModal === 'configSync'}
+            onClose={() => setActiveModal(null)}
+            servers={servers}
+          />
+
+          <ContractTestRunnerModal
+            isOpen={activeModal === 'contractTestRunner'}
+            onClose={() => setActiveModal(null)}
+            servers={servers}
+            serverMetadataMap={serverMetadata}
+            activeServerId={activeServerId}
           />
         </Suspense>
       </ErrorBoundary>

@@ -2,8 +2,9 @@ import { ipcMain } from 'electron'
 import { randomUUID } from 'crypto'
 import { McpClientManager } from '../mcp/McpClientManager'
 import { McpDiscovery } from '../mcp/McpDiscovery'
+import { McpConfigWriter } from '../mcp/McpConfigWriter'
 import { StorageManager } from '../storage/StorageManager'
-import { McpServerConfig } from '../../shared/types'
+import { McpServerConfig, ClientSyncTargetId } from '../../shared/types'
 import { isValidString } from './validation'
 
 import { LicenseManager } from '../ee/license/LicenseManager'
@@ -121,4 +122,34 @@ export function registerMcpHandlers(ctx: McpHandlerContext): void {
   ipcMain.handle('mcp:discover-servers', async () => {
     return await McpDiscovery.discoverInstalledServers()
   })
+
+  ipcMain.handle('mcp:list-sync-targets', async () => {
+    return await McpConfigWriter.listSyncTargets()
+  })
+
+  ipcMain.handle(
+    'mcp:preview-client-config-diff',
+    async (_, targetId: ClientSyncTargetId, servers: McpServerConfig[]) => {
+      if (!isValidString(targetId) || !Array.isArray(servers)) {
+        throw new Error('Invalid targetId or servers payload')
+      }
+      return await McpConfigWriter.previewClientConfigDiff(targetId, servers)
+    }
+  )
+
+  ipcMain.handle(
+    'mcp:sync-config-to-client',
+    async (_, targetId: ClientSyncTargetId, servers: McpServerConfig[]) => {
+      if (!isValidString(targetId) || !Array.isArray(servers)) {
+        return {
+          success: false,
+          targetId,
+          modifiedFilePath: '',
+          syncedServerCount: 0,
+          error: 'Invalid targetId or servers payload'
+        }
+      }
+      return await McpConfigWriter.syncConfigToClient(targetId, servers)
+    }
+  )
 }

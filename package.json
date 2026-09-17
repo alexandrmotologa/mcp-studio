@@ -1,6 +1,6 @@
 {
   "name": "mcp-studio",
-  "version": "2.1.8",
+  "version": "2.2.0",
   "description": "Open Source Desktop Inspector & Protocol Suite for Model Context Protocol (MCP)",
   "homepage": "https://mcp.mtlglabs.space",
   "main": "./out/main/index.js",

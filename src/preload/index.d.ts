@@ -15,7 +15,11 @@ import {
   EnvironmentProfile,
   TestSuite,
   MockServerConfig,
-  UpdateInfoPayload
+  UpdateInfoPayload,
+  ClientSyncTarget,
+  ClientSyncTargetId,
+  ClientSyncDiff,
+  ClientSyncResult
 } from '../shared/types'
 
 export interface IElectronAPI {
@@ -63,6 +67,15 @@ export interface IElectronAPI {
         servers: Omit<McpServerConfig, 'id' | 'status' | 'createdAt'>[]
       }[]
     >
+    listSyncTargets: () => Promise<ClientSyncTarget[]>
+    previewClientConfigDiff: (
+      targetId: ClientSyncTargetId,
+      servers: McpServerConfig[]
+    ) => Promise<ClientSyncDiff>
+    syncConfigToClient: (
+      targetId: ClientSyncTargetId,
+      servers: McpServerConfig[]
+    ) => Promise<ClientSyncResult>
     simulateAgent: (
       config: SimulationConfig,
       tools: McpTool[]

@@ -8,9 +8,9 @@
 
 ## Desktop development environment, inspector, and testing platform for the Model Context Protocol (MCP)
 
-[![Release](https://img.shields.io/badge/release-v2.1.8-indigo.svg)](https://github.com/alexandrmotologa/mcp-studio/releases)
+[![Release](https://img.shields.io/badge/release-v2.2.0-indigo.svg)](https://github.com/alexandrmotologa/mcp-studio/releases)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/alexandrmotologa/mcp-studio)
-[![Tests](https://img.shields.io/badge/tests-36%20passing%20(7%20suites)-emerald.svg)](tests)
+[![Tests](https://img.shields.io/badge/tests-46%20passing%20(9%20suites)-emerald.svg)](tests)
 [![Electron](https://img.shields.io/badge/Electron-v34.2.0-47848F.svg?logo=electron&logoColor=white)](https://electronjs.org)
 [![React](https://img.shields.io/badge/React-v19.0.0-61DAFB.svg?logo=react&logoColor=black)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7.3-3178C6.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
@@ -21,8 +21,8 @@
 
 <br/>
 
-[![Download Windows Setup](https://img.shields.io/badge/Windows-NSIS%20Setup%20(.exe)-6366f1?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-Setup-2.1.8.exe)
-[![Download Windows Portable](https://img.shields.io/badge/Windows-Portable%20(.exe)-4f46e5?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-Portable-2.1.8.exe)
+[![Download Windows Setup](https://img.shields.io/badge/Windows-NSIS%20Setup%20(.exe)-6366f1?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-Setup-2.2.0.exe)
+[![Download Windows Portable](https://img.shields.io/badge/Windows-Portable%20(.exe)-4f46e5?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/alexandrmotologa/mcp-studio/releases/latest/download/MCP-Studio-Portable-2.2.0.exe)
 
 </div>
 
@@ -149,11 +149,28 @@ Built-in utilities for schema validation, client code generation, server scaffol
 * **Code snippet generator:** Exports execution snippets in Python (`mcp.ClientSession`), TypeScript, cURL, Go, and Rust.
 * **Process console drawer:** Displays real-time stdout and stderr output from server child processes.
 
-### Real-time JSON-RPC 2.0 traffic stream
+### Real-time JSON-RPC 2.0 traffic stream & analytics
 
 * **Packet inspector:** Records all incoming and outgoing frames with millisecond timestamps and method filters (`tools/list`, `tools/call`, `resources/list`, etc.).
+* **Token & bandwidth telemetry:** Real-time token usage estimation (~3.8 char/token heuristic) and UTF-8 payload byte metrics directly on traffic entries.
+* **Traffic analytics drawer:** Slide-over telemetry drawer displaying request counts, error percentages, token totals, data transferred (KB/MB), and latency percentiles (P50, P95, P99).
 * **Side-by-side diff:** Compares two frames side by side to diagnose payload regressions between calls.
 * **Packet replay:** Loads a recorded `tools/call` message back into the Tool Inspector with its original arguments.
+* **Session export:** Download recorded traffic streams as raw JSON-RPC logs or standard HTTP Archive (HAR) format for external proxy inspection.
+
+### 2-Way client config sync and write-back engine
+
+* **Multi-client discovery & export:** Detects and writes configurations across 8 desktop AI clients: Google Antigravity IDE, Claude Desktop, Cursor IDE, Windsurf, Zed IDE, VS Code (Cline), Roo Code, and Continue.dev.
+* **Safe atomic writes:** Staged writes through temporary files (`.tmp_*`) and atomic rename operations protect configurations from corruption during power loss or client crashes.
+* **Automatic snapshots:** Creates timestamped backups (`*.bak.[timestamp]`) before altering existing configuration files on disk.
+* **Visual diff inspection:** Side-by-side JSON diff preview distinguishing added, modified, and unchanged servers before executing write-backs.
+
+### Automated MCP contract & regression test runner
+
+* **Multi-rule assertion engine:** Runs assertions against tool invocations with six verification rules: `status_success`, `duration_lt`, `schema_valid`, `json_path_equals`, `contains_text`, and `regex_match`.
+* **Suite management:** In-app suite creation, schema-derived test case prefilling, and parameterized assertion thresholds.
+* **Live runner & diagnostics:** Execution tracking with pass/fail badges, elapsed time, and expandable assertion failure traces.
+* **Structured reporting:** Export regression test results directly to Markdown (.md) or JSON (.json) for team reports and CI verification.
 
 ### Server management and auto-discovery
 
@@ -169,7 +186,7 @@ Built-in utilities for schema validation, client code generation, server scaffol
 
 ### Interface and controls
 
-* **Navigation header:** Quick access to server selection, global search, and workspace tabs.
+* **Navigation header:** Quick access to server selection, global search, Sync modal, Contract Tests, and workspace tabs.
 * **Themes:** Includes 7 color themes covering light, dark, and high-contrast modes.
 * **Command palette (`Ctrl+K`):** Search across all tools, resources, prompts, and server actions.
 
@@ -221,7 +238,7 @@ npm install
 # 3. Launch in development mode with Electron and Vite hot reload
 npm run dev
 
-# 4. Run automated test suites (36 unit tests)
+# 4. Run automated test suites (46 unit tests across 9 suites)
 npm test
 
 # 5. Typecheck verification
@@ -242,20 +259,23 @@ mcp-studio/
 ├── .github/workflows/test.yml     # CI test workflow (Lint, Typecheck, Vitest)
 ├── build/                         # App icons, macOS entitlements, NSIS scripts
 ├── docs/                          # Public changelog, release notes, documentation
+│   ├── CHANGELOG.md               # Version history
+│   └── RELEASE_NOTES_v2.2.0.md    # Detailed notes for v2.2.0 release
 ├── assets/                        # Workspace screenshots and diagrams
 ├── src/
 │   ├── main/                      # Electron Main Process (Node.js)
 │   │   ├── ipc/                   # Modular IPC handlers (MCP, Storage, System)
-│   │   ├── mcp/                   # McpClientManager and auto-discovery engine
+│   │   ├── mcp/                   # McpClientManager, discovery, and McpConfigWriter
 │   │   ├── storage/               # Atomic storage engine and backup recovery
 │   │   └── ee/                    # Community stubs for Pro extension points
 │   ├── preload/                   # Electron ContextBridge with typed window.api
 │   ├── renderer/                  # React 19 Frontend (TailwindCSS + Lucide)
-│   │   ├── src/components/        # UI components (ToolInspector, TrafficInspector, etc.)
-│   │   ├── src/utils/             # NotificationDispatcher, SoundEngine, MockDataGenerator
+│   │   ├── src/components/        # UI components (Inspector, ConfigSyncModal, ContractTestRunnerModal, TrafficAnalyticsDrawer)
+│   │   ├── src/utils/             # tokenEstimator, contractTesterEngine, soundEngine, notificationDispatcher
 │   │   └── src/ee/                # Community UI stubs and upsell components
-│   └── shared/                    # Shared TypeScript protocol definitions
-├── tests/                         # Vitest test suites
+│   └── shared/                    # Shared TypeScript protocol definitions & contract schemas
+├── tests/                         # Vitest test suites (46 tests across 9 suites)
+│   └── mcp/                       # Unit tests for configWriter, contractTester, etc.
 ├── package.json                   # MIT open-source configuration
 ├── electron.vite.config.ts        # Electron-Vite configuration
 └── LICENSE                        # MIT License

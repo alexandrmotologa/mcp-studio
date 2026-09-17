@@ -91,6 +91,145 @@ export interface JsonRpcLog {
   payload: unknown
   durationMs?: number
   isError?: boolean
+  requestTokens?: JsonRpcTokenStats
+  responseTokens?: JsonRpcTokenStats
+  payloadBytes?: number
+}
+
+// 1. Client Sync & Write-Back Models
+export type ClientSyncTargetId =
+  | 'antigravity'
+  | 'claude-desktop'
+  | 'cursor'
+  | 'windsurf'
+  | 'zed'
+  | 'cline'
+  | 'roo-code'
+  | 'continue'
+
+export interface ClientSyncTarget {
+  id: ClientSyncTargetId
+  name: string
+  configFilePath: string
+  exists: boolean
+  isWritable: boolean
+  installedServerCount: number
+  format: 'claude_mcpServers' | 'cursor_mcpServers' | 'zed_contextServers' | 'antigravity_mcpServers'
+}
+
+export interface ClientSyncDiff {
+  targetId: ClientSyncTargetId
+  targetName: string
+  configFilePath: string
+  serversToAdd: string[]
+  serversToUpdate: string[]
+  serversUnchanged: string[]
+  beforeJson: string
+  afterJson: string
+}
+
+export interface ClientSyncResult {
+  success: boolean
+  targetId: ClientSyncTargetId
+  backupFilePath?: string
+  modifiedFilePath: string
+  syncedServerCount: number
+  error?: string
+}
+
+// 2. Traffic Analytics & Token Metrics
+export interface JsonRpcTokenStats {
+  estimatedTokens: number
+  charCount: number
+  byteSize: number
+}
+
+// Extend existing JsonRpcLog interface
+export interface JsonRpcLogExtended extends JsonRpcLog {
+  requestTokens?: JsonRpcTokenStats
+  responseTokens?: JsonRpcTokenStats
+  payloadBytes: number
+}
+
+export interface TrafficAggregateMetrics {
+  totalCalls: number
+  errorCount: number
+  avgDurationMs: number
+  p50DurationMs: number
+  p95DurationMs: number
+  p99DurationMs: number
+  totalBytesTransferred: number
+  totalEstimatedTokens: number
+  callsByServer: Record<string, number>
+  callsByMethod: Record<string, number>
+}
+
+// 3. Contract & Regression Test Runner Models
+export type ContractAssertionType =
+  | 'status_success'
+  | 'duration_lt'
+  | 'schema_valid'
+  | 'json_path_equals'
+  | 'contains_text'
+  | 'regex_match'
+
+export interface ContractAssertion {
+  id: string
+  type: ContractAssertionType
+  path?: string // e.g. "content[0].text"
+  expectedValue?: any
+  toleranceMs?: number
+}
+
+export interface ContractTestCase {
+  id: string
+  name: string
+  toolName: string
+  arguments: Record<string, any>
+  assertions: ContractAssertion[]
+  expectedLatencyMs?: number
+  enabled: boolean
+}
+
+export interface ContractTestSuite {
+  id: string
+  serverId: string
+  serverName: string
+  name: string
+  description?: string
+  testCases: ContractTestCase[]
+  createdAt: number
+  updatedAt: number
+}
+
+export interface ContractAssertionResult {
+  assertion: ContractAssertion
+  passed: boolean
+  actualValue?: any
+  message?: string
+}
+
+export interface ContractTestCaseResult {
+  testCaseId: string
+  testCaseName: string
+  toolName: string
+  status: 'passed' | 'failed' | 'skipped' | 'error'
+  durationMs: number
+  assertionResults: ContractAssertionResult[]
+  rawResponse?: any
+  error?: string
+}
+
+export interface ContractTestReport {
+  id: string
+  suiteId: string
+  suiteName: string
+  timestamp: number
+  totalTests: number
+  passedCount: number
+  failedCount: number
+  avgDurationMs: number
+  results: ContractTestCaseResult[]
 }
 
 export interface ProcessConsoleLog {

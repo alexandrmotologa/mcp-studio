@@ -304,6 +304,63 @@ export function initBrowserAdapter(): void {
           }
         ],
 
+        listSyncTargets: async () => [
+          {
+            id: 'claude-desktop',
+            name: 'Claude Desktop',
+            configFilePath: '~/Library/Application Support/Claude/claude_desktop_config.json',
+            exists: true,
+            isWritable: true,
+            installedServerCount: 1,
+            format: 'claude_mcpServers'
+          },
+          {
+            id: 'cursor',
+            name: 'Cursor IDE',
+            configFilePath: '~/.cursor/mcp.json',
+            exists: true,
+            isWritable: true,
+            installedServerCount: 0,
+            format: 'cursor_mcpServers'
+          },
+          {
+            id: 'antigravity',
+            name: 'Google Antigravity IDE',
+            configFilePath: '~/.gemini/antigravity-ide/mcp_config.json',
+            exists: true,
+            isWritable: true,
+            installedServerCount: 2,
+            format: 'antigravity_mcpServers'
+          }
+        ],
+
+        previewClientConfigDiff: async (targetId: any, servers: any[]) => ({
+          targetId,
+          targetName: targetId === 'claude-desktop' ? 'Claude Desktop' : 'Client IDE',
+          configFilePath: '~/config/mcp.json',
+          serversToAdd: servers.map((s) => s.name),
+          serversToUpdate: [],
+          serversUnchanged: [],
+          beforeJson: '{\n  "mcpServers": {}\n}',
+          afterJson: JSON.stringify(
+            {
+              mcpServers: Object.fromEntries(
+                servers.map((s) => [s.name.toLowerCase().replace(/[^a-z0-9_-]/g, '-'), { command: s.command, args: s.args }])
+              )
+            },
+            null,
+            2
+          )
+        }),
+
+        syncConfigToClient: async (targetId: any, servers: any[]) => ({
+          success: true,
+          targetId,
+          modifiedFilePath: '~/config/mcp.json',
+          backupFilePath: '~/config/mcp.json.bak',
+          syncedServerCount: servers.length
+        }),
+
         simulateAgent: async (config: SimulationConfig, tools: McpTool[]) => {
           const firstTool = tools[0]
           const targetUrl = config.baseUrl || 'http://localhost:11434/api/chat'

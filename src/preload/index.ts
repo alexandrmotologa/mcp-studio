@@ -16,7 +16,11 @@ import {
   EnvironmentProfile,
   TestSuite,
   MockServerConfig,
-  UpdateInfoPayload
+  UpdateInfoPayload,
+  ClientSyncTarget,
+  ClientSyncTargetId,
+  ClientSyncDiff,
+  ClientSyncResult
 } from '../shared/types'
 
 const api = {
@@ -56,6 +60,15 @@ const api = {
       source: string
       servers: Omit<McpServerConfig, 'id' | 'status' | 'createdAt'>[]
     }[]> => ipcRenderer.invoke('mcp:discover-servers'),
+
+    listSyncTargets: (): Promise<ClientSyncTarget[]> =>
+      ipcRenderer.invoke('mcp:list-sync-targets'),
+
+    previewClientConfigDiff: (targetId: ClientSyncTargetId, servers: McpServerConfig[]): Promise<ClientSyncDiff> =>
+      ipcRenderer.invoke('mcp:preview-client-config-diff', targetId, servers),
+
+    syncConfigToClient: (targetId: ClientSyncTargetId, servers: McpServerConfig[]): Promise<ClientSyncResult> =>
+      ipcRenderer.invoke('mcp:sync-config-to-client', targetId, servers),
 
     simulateAgent: (config: SimulationConfig, tools: McpTool[]): Promise<{
       success: boolean

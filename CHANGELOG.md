@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.2.0] - 2026-09-17
+
+### 2-Way Client Config Sync and Write-Back Engine
+- **Client sync writer:** Added `McpConfigWriter` to safely write configured servers back to host AI clients, including Google Antigravity IDE, Claude Desktop, Cursor IDE, Windsurf, Zed IDE, VS Code (Cline), Roo Code, and Continue.dev.
+- **Atomic file operations:** Uses temporary files and atomic file renames to prevent partial writes.
+- **Timestamped backups:** Generates automatic backup files (`*.bak.[timestamp]`) before altering existing configuration files.
+- **Diff generation:** Computes added, updated, and unchanged server entries with side-by-side JSON previews before commit.
+- **Config sync modal:** Interface for selecting detected target clients, choosing servers to synchronize, previewing diffs, and executing write-backs with backup path confirmation.
+
+### Traffic Analytics, Token Estimator, and Bandwidth Telemetry
+- **Token estimator:** Lightweight tokenizer estimating token usage (~3.8 characters per token) and byte sizes across JSON-RPC requests and responses.
+- **Traffic analytics drawer:** Slide-over telemetry drawer showing total requests, error rates, token volumes, data transferred (KB/MB), and round-trip latency percentiles (P50, P95, P99).
+- **Traffic inspector metrics:** In-stream token badges and payload size indicators on each frame and in the inspector header.
+- **Session export:** One-click downloads for raw JSON-RPC logs and standard HTTP Archive (HAR) files for trace inspection in proxy tools.
+
+### Automated MCP Contract and Regression Test Runner
+- **Assertion engine:** Evaluates six assertion rules against tool calls: `status_success`, `duration_lt`, `schema_valid`, `json_path_equals`, `contains_text`, and `regex_match`.
+- **Contract test runner modal:** Suite editor with schema-derived mock data prefilling, live test runner with status badges and execution progress, and expandable assertion failure explanations.
+- **Report export:** Compiles test results into structured Markdown and JSON reports for CI pipelines and local verification.
+- **Quick navigation:** Header anchors and preferences menu options for Sync and Contract Tests.
+
+---
+
 ## [2.1.8] - 2026-09-08
 
 ### Studio Notification Dispatcher and Notification Center
