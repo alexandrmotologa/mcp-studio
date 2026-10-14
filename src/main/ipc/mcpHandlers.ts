@@ -4,7 +4,7 @@ import { McpClientManager } from '../mcp/McpClientManager'
 import { McpDiscovery } from '../mcp/McpDiscovery'
 import { McpConfigWriter } from '../mcp/McpConfigWriter'
 import { StorageManager } from '../storage/StorageManager'
-import { McpServerConfig, ClientSyncTargetId } from '../../shared/types'
+import { McpServerConfig, ClientSyncTargetId, InterceptorRule } from '../../shared/types'
 import { isValidString } from './validation'
 
 import { LicenseManager } from '../ee/license/LicenseManager'
@@ -170,4 +170,27 @@ export function registerMcpHandlers(ctx: McpHandlerContext): void {
       return await McpConfigWriter.syncConfigToClient(targetId, servers)
     }
   )
+
+  // OS Process stats (PID, Memory Working Set, Uptime, Live status)
+  ipcMain.handle('mcp:get-process-stats', async (_, serverId?: string) => {
+    const manager = ctx.getMcpManager()
+    if (!manager) return []
+    return await manager.getServerProcessStats(serverId)
+  })
+
+  // Traffic Interceptor rules management
+  ipcMain.handle('mcp:get-interceptor-rules', async () => {
+    const manager = ctx.getMcpManager()
+    if (!manager) return []
+    return manager.getInterceptorRules()
+  })
+
+  ipcMain.handle('mcp:set-interceptor-rules', async (_, rules: InterceptorRule[]) => {
+    const manager = ctx.getMcpManager()
+    if (!manager) return false
+    if (!Array.isArray(rules)) return false
+    manager.setInterceptorRules(rules)
+    return true
+  })
 }
+

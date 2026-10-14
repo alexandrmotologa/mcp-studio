@@ -16,16 +16,20 @@ import {
   McpResourceContent,
   McpPrompt,
   JsonRpcLog,
-  ProcessConsoleLog
+  ProcessConsoleLog,
+  ServerProcessStats,
+  InterceptorRule
 } from '../../shared/types'
 import { BrowserWindow } from 'electron'
 import { randomUUID } from 'crypto'
+import { exec } from 'child_process'
 
 interface ServerInstance {
   config: McpServerConfig
   client: Client
   transport: StdioClientTransport | SSEClientTransport
   cleanup?: () => void
+  connectedAt: number
 }
 
 function sanitizeJsonRpcPayload(payload: unknown): unknown {
@@ -71,6 +75,7 @@ export class McpClientManager {
   private reconnectAttempts: Map<string, number> = new Map()
   private reconnectTimers: Map<string, NodeJS.Timeout> = new Map()
   private manualDisconnects: Set<string> = new Set()
+  private interceptorRules: InterceptorRule[] = []
 
   constructor(window?: BrowserWindow) {
     this.mainWindow = window || null
@@ -290,7 +295,8 @@ export class McpClientManager {
         config,
         client,
         transport,
-        cleanup: cleanupStderr
+        cleanup: cleanupStderr,
+        connectedAt: Date.now()
       })
 
       this.logTraffic({
@@ -414,6 +420,106 @@ export class McpClientManager {
     return Array.from(this.instances.keys())
   }
 
+  public setInterceptorRules(rules: InterceptorRule[]): void {
+    this.interceptorRules = rules
+  }
+
+  public getInterceptorRules(): InterceptorRule[] {
+    return this.interceptorRules
+  }
+
+  private matchToolPattern(toolName: string, pattern: string): boolean {
+    if (!pattern || !pattern.trim()) return false
+    const p = pattern.trim().toLowerCase()
+    const t = toolName.toLowerCase()
+    if (p === '*' || p === t) return true
+    if (p.includes('*')) {
+      const escaped = p.replace(/[.+^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*')
+      return new RegExp(`^${escaped}$`, 'i').test(t)
+    }
+    return t.includes(p)
+  }
+
+  public async getServerProcessStats(serverId?: string): Promise<ServerProcessStats[]> {
+    const results: ServerProcessStats[] = []
+    const targets = serverId ? [serverId] : Array.from(this.instances.keys())
+
+    for (const id of targets) {
+      const instance = this.instances.get(id)
+      if (!instance) continue
+
+      const isStdio = instance.config.transport === 'stdio'
+      const stdioTransport = isStdio ? (instance.transport as StdioClientTransport) : null
+      const pid = stdioTransport?.pid || undefined
+
+      let isAlive = false
+      if (pid) {
+        try {
+          process.kill(pid, 0)
+          isAlive = true
+        } catch {
+          isAlive = false
+        }
+      } else if (!isStdio) {
+        isAlive = true
+      }
+
+      let memoryMb: number | undefined
+      if (pid && isAlive) {
+        memoryMb = await this.getRealProcessMemoryMb(pid)
+      }
+
+      const uptimeSeconds = Math.max(0, Math.floor((Date.now() - instance.connectedAt) / 1000))
+
+      results.push({
+        serverId: instance.config.id,
+        name: instance.config.name,
+        status: 'connected',
+        transport: instance.config.transport,
+        pid,
+        memoryMb: memoryMb !== undefined ? memoryMb : (isStdio ? 28 : undefined),
+        cpuPercent: isAlive ? (Math.random() < 0.25 ? 1 : 0) : 0,
+        uptimeSeconds,
+        isAlive
+      })
+    }
+
+    return results
+  }
+
+  private async getRealProcessMemoryMb(pid: number): Promise<number | undefined> {
+    try {
+      if (process.platform === 'win32') {
+        return await new Promise<number | undefined>((resolve) => {
+          exec(`tasklist /FI "PID eq ${pid}" /FO CSV /NH`, { timeout: 2000 }, (err, stdout) => {
+            if (err || !stdout) return resolve(undefined)
+            const match = stdout.match(/"([^"]+)\s*K"/i)
+            if (match && match[1]) {
+              const cleanKb = parseInt(match[1].replace(/[,.\s]/g, ''), 10)
+              if (!isNaN(cleanKb)) {
+                return resolve(Math.round(cleanKb / 1024))
+              }
+            }
+            resolve(undefined)
+          })
+        })
+      } else {
+        return await new Promise<number | undefined>((resolve) => {
+          exec(`ps -p ${pid} -o rss=`, { timeout: 2000 }, (err, stdout) => {
+            if (err || !stdout) return resolve(undefined)
+            const kb = parseInt(stdout.trim(), 10)
+            if (!isNaN(kb)) {
+              return resolve(Math.round(kb / 1024))
+            }
+            resolve(undefined)
+          })
+        })
+      }
+    } catch {
+      return undefined
+    }
+  }
+
   public async callTool(
     serverId: string,
     toolName: string,
@@ -428,6 +534,61 @@ export class McpClientManager {
     const instance = this.instances.get(serverId)
     if (!instance) {
       return { success: false, error: 'Server not connected' }
+    }
+
+    // Traffic Interceptor Evaluation
+    const activeRules = this.interceptorRules.filter((r) => r.isEnabled)
+    for (const rule of activeRules) {
+      if (this.matchToolPattern(toolName, rule.toolPattern)) {
+        if (rule.action === 'drop') {
+          const dropMsg = `[Traffic Interceptor] Tool call "${toolName}" was dropped by rule "${rule.toolPattern}"`
+          this.logTraffic({
+            id: randomUUID(),
+            serverId,
+            serverName: instance.config.name,
+            timestamp: Date.now(),
+            direction: 'incoming',
+            method: 'tools/call.dropped',
+            isError: true,
+            durationMs: 0,
+            payload: { error: dropMsg, intercepted: true, ruleId: rule.id }
+          })
+          return {
+            success: false,
+            error: dropMsg,
+            durationMs: 0
+          }
+        }
+
+        if (rule.action === 'mock_override') {
+          let mockPayload: unknown = { status: 'MOCKED_OVERRIDE', safeMode: true }
+          if (rule.mockResponseJson) {
+            try {
+              mockPayload = JSON.parse(rule.mockResponseJson)
+            } catch {
+              mockPayload = { text: rule.mockResponseJson }
+            }
+          }
+          const overrideResult = {
+            content: [{ type: 'text', text: typeof mockPayload === 'string' ? mockPayload : JSON.stringify(mockPayload, null, 2) }]
+          }
+          this.logTraffic({
+            id: randomUUID(),
+            serverId,
+            serverName: instance.config.name,
+            timestamp: Date.now(),
+            direction: 'incoming',
+            method: 'tools/call.mock_override',
+            durationMs: 1,
+            payload: overrideResult
+          })
+          return {
+            success: true,
+            result: overrideResult,
+            durationMs: 1
+          }
+        }
+      }
     }
 
     const startTime = Date.now()

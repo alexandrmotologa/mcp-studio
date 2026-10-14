@@ -20,7 +20,9 @@ import {
   ClientSyncTarget,
   ClientSyncTargetId,
   ClientSyncDiff,
-  ClientSyncResult
+  ClientSyncResult,
+  ServerProcessStats,
+  InterceptorRule
 } from '../shared/types'
 
 const api = {
@@ -75,6 +77,15 @@ const api = {
 
     syncConfigToClient: (targetId: ClientSyncTargetId, servers: McpServerConfig[]): Promise<ClientSyncResult> =>
       ipcRenderer.invoke('mcp:sync-config-to-client', targetId, servers),
+
+    getProcessStats: (serverId?: string): Promise<ServerProcessStats[]> =>
+      ipcRenderer.invoke('mcp:get-process-stats', serverId),
+
+    getInterceptorRules: (): Promise<InterceptorRule[]> =>
+      ipcRenderer.invoke('mcp:get-interceptor-rules'),
+
+    setInterceptorRules: (rules: InterceptorRule[]): Promise<boolean> =>
+      ipcRenderer.invoke('mcp:set-interceptor-rules', rules),
 
     simulateAgent: (config: SimulationConfig, tools: McpTool[]): Promise<{
       success: boolean

@@ -361,6 +361,23 @@ export function initBrowserAdapter(): void {
           syncedServerCount: servers.length
         }),
 
+        getProcessStats: async (serverId?: string) => [
+          {
+            serverId: serverId || 'demo-server',
+            name: 'Sample MCP Server',
+            status: 'connected' as const,
+            transport: 'stdio' as const,
+            pid: 14208,
+            memoryMb: 42,
+            cpuPercent: 1,
+            uptimeSeconds: 120,
+            isAlive: true
+          }
+        ],
+
+        getInterceptorRules: async () => [],
+        setInterceptorRules: async (_rules: any[]) => true,
+
         simulateAgent: async (config: SimulationConfig, tools: McpTool[]) => {
           const firstTool = tools[0]
           const targetUrl = config.baseUrl || 'http://localhost:11434/api/chat'

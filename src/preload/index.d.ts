@@ -19,7 +19,9 @@ import {
   ClientSyncTarget,
   ClientSyncTargetId,
   ClientSyncDiff,
-  ClientSyncResult
+  ClientSyncResult,
+  ServerProcessStats,
+  InterceptorRule
 } from '../shared/types'
 
 export interface IElectronAPI {
@@ -78,6 +80,9 @@ export interface IElectronAPI {
       targetId: ClientSyncTargetId,
       servers: McpServerConfig[]
     ) => Promise<ClientSyncResult>
+    getProcessStats: (serverId?: string) => Promise<ServerProcessStats[]>
+    getInterceptorRules: () => Promise<InterceptorRule[]>
+    setInterceptorRules: (rules: InterceptorRule[]) => Promise<boolean>
     simulateAgent: (
       config: SimulationConfig,
       tools: McpTool[]

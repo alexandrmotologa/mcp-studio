@@ -287,5 +287,27 @@ export interface EnvironmentProfile {
   isDefault?: boolean
 }
 
+export interface ServerProcessStats {
+  serverId: string
+  name: string
+  status: 'connected' | 'connecting' | 'disconnected' | 'error'
+  transport: 'stdio' | 'sse'
+  pid?: number
+  memoryBytes?: number
+  memoryMb?: number
+  cpuPercent?: number
+  uptimeSeconds: number
+  isAlive: boolean
+}
+
+export interface InterceptorRule {
+  id: string
+  toolPattern: string
+  action: 'breakpoint' | 'mock_override' | 'drop'
+  mockResponseJson?: string
+  isEnabled: boolean
+}
+
 // Re-export Enterprise Edition types for backward compatibility in Core
 export * from './eeTypes'
+
