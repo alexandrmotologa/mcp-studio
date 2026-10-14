@@ -47,7 +47,9 @@ import {
   EeNotificationCenterModal as NotificationCenterModal,
   EeAutoDiscoverModal as AutoDiscoverModal,
   EeExportModal as ExportModal,
-  EeAnalyticsDashboard as AnalyticsDashboard
+  EeAnalyticsDashboard as AnalyticsDashboard,
+  EeConfigSyncModal as ConfigSyncModal,
+  EeContractTestRunnerModal as ContractTestRunnerModal
 } from './ee/eeRegistry'
 import type {
   StudioNotification,
@@ -108,6 +110,8 @@ export type ActiveModal =
   | 'discover'
   | 'onboarding'
   | 'serverLimit'
+  | 'configSync'
+  | 'contractTestRunner'
   | null
 
 export default function App() {
@@ -442,10 +446,44 @@ export default function App() {
       }
     })
 
+    const cleanupMetadata = window.api.mcp.onMetadataUpdated?.((data) => {
+      setServerMetadata((prev) => ({
+        ...prev,
+        [data.serverId]: data.metadata
+      }))
+      dispatchNotification({
+        title: 'Protocol Schema Updated',
+        message: `Tools or resources updated dynamically.`,
+        type: 'info',
+        category: 'servers'
+      })
+    })
+
+    const cleanupResourceUpdated = window.api.mcp.onResourceUpdated?.((data) => {
+      dispatchNotification({
+        title: 'Resource Changed',
+        message: `Resource "${data.uri}" was updated by server.`,
+        type: 'info',
+        category: 'servers'
+      })
+    })
+
+    const cleanupSampling = window.api.mcp.onSamplingRequest?.((data) => {
+      dispatchNotification({
+        title: 'MCP Sampling Requested',
+        message: `Server "${data.serverName}" requested LLM completion.`,
+        type: 'info',
+        category: 'servers'
+      })
+    })
+
     return () => {
       cleanupTraffic()
       cleanupConsole()
       cleanupStatus?.()
+      cleanupMetadata?.()
+      cleanupResourceUpdated?.()
+      cleanupSampling?.()
       cleanupUpdater?.()
       cleanupLicense?.()
     }
@@ -835,6 +873,8 @@ export default function App() {
         onOpenNotifications={() => setActiveModal('notification')}
         onOpenToolkit={() => setActiveModal('toolkit')}
         onOpenOnboarding={() => setActiveModal('onboarding')}
+        onOpenSyncModal={() => setActiveModal('configSync')}
+        onOpenContractTestModal={() => setActiveModal('contractTestRunner')}
         unreadNotificationsCount={unreadNotificationsCount}
       />
 
@@ -1275,6 +1315,22 @@ export default function App() {
             lockedServer={lockedServerTarget}
             totalServersCount={servers.length}
             maxAllowed={license.maxServers || 1}
+          />
+
+          {/* 🔄 2-Way Client Config Sync */}
+          <ConfigSyncModal
+            isOpen={activeModal === 'configSync'}
+            onClose={() => setActiveModal(null)}
+            servers={servers}
+          />
+
+          {/* 🛡️ Automated MCP Contract & Regression Test Runner */}
+          <ContractTestRunnerModal
+            isOpen={activeModal === 'contractTestRunner'}
+            onClose={() => setActiveModal(null)}
+            servers={servers}
+            serverMetadataMap={serverMetadata}
+            activeServerId={activeServerId}
           />
         </Suspense>
       </ErrorBoundary>

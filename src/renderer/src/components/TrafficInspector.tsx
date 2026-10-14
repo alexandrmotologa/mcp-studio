@@ -10,9 +10,12 @@ import {
   AlertTriangle,
   Play,
   GitCompare,
-  Sparkles
+  Sparkles,
+  BarChart3
 } from 'lucide-react'
 import { JsonRpcLog } from '../../../shared/types'
+import { TrafficAnalyticsDrawer } from './TrafficAnalyticsDrawer'
+import { estimateTokens, formatBytes } from '../utils/tokenEstimator'
 
 interface TrafficInspectorProps {
   logs: JsonRpcLog[]
@@ -36,6 +39,7 @@ export const TrafficInspector = React.memo<TrafficInspectorProps>(({
   const [searchQuery, setSearchQuery] = useState('')
   const [filterDirection, setFilterDirection] = useState<'all' | 'incoming' | 'outgoing'>('all')
   const [copied, setCopied] = useState(false)
+  const [isAnalyticsOpen, setIsAnalyticsOpen] = useState(false)
 
   const filteredLogs = useMemo(() => {
     return logs.filter((log) => {
@@ -123,13 +127,23 @@ export const TrafficInspector = React.memo<TrafficInspectorProps>(({
               <Activity className="w-3.5 h-3.5 text-cyan-400" />
               Traffic Stream ({filteredLogs.length})
             </span>
-            <button
-              onClick={onClearLogs}
-              className="p-1 rounded-md text-slate-400 hover:text-rose-400 hover:bg-studio-800 transition-colors"
-              title="Clear all logs"
-            >
-              <Trash2 className="w-3.5 h-3.5" />
-            </button>
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => setIsAnalyticsOpen(true)}
+                className="flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium text-cyan-400 hover:text-cyan-300 hover:bg-cyan-950/40 border border-cyan-800/40 transition-colors"
+                title="Open Traffic & Token Analytics"
+              >
+                <BarChart3 className="w-3 h-3" />
+                <span>Analytics</span>
+              </button>
+              <button
+                onClick={onClearLogs}
+                className="p-1 rounded-md text-slate-400 hover:text-rose-400 hover:bg-studio-800 transition-colors"
+                title="Clear all logs"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+              </button>
+            </div>
           </div>
 
           <div className="flex items-center gap-2">
@@ -207,9 +221,12 @@ export const TrafficInspector = React.memo<TrafficInspectorProps>(({
 
                   <div className="flex items-center justify-between text-[11px] text-slate-500">
                     <span className="truncate max-w-[140px] font-medium text-slate-400">{log.serverName}</span>
-                    {log.durationMs !== undefined && (
-                      <span className="font-mono text-[10px] text-amber-400 font-bold">{log.durationMs}ms</span>
-                    )}
+                    <div className="flex items-center gap-1.5 font-mono text-[10px]">
+                      <span>{formatBytes(log.payloadBytes ?? estimateTokens(log.payload).byteSize)}</span>
+                      {log.durationMs !== undefined && (
+                        <span className="text-amber-400 font-bold">{log.durationMs}ms</span>
+                      )}
+                    </div>
                   </div>
                 </div>
               )
@@ -236,8 +253,16 @@ export const TrafficInspector = React.memo<TrafficInspectorProps>(({
                 >
                   {selectedLog.direction}
                 </span>
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-md bg-studio-950 text-slate-300 border border-studio-border" title="Wire payload byte size">
+                  {formatBytes(selectedLog.payloadBytes ?? estimateTokens(selectedLog.payload).byteSize)}
+                </span>
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-300 border border-amber-500/20" title="Estimated token volume">
+                  ~{selectedLog.direction === 'outgoing'
+                    ? (selectedLog.requestTokens?.estimatedTokens ?? estimateTokens(selectedLog.payload).estimatedTokens)
+                    : (selectedLog.responseTokens?.estimatedTokens ?? estimateTokens(selectedLog.payload).estimatedTokens)} tok
+                </span>
                 {selectedLog.durationMs !== undefined && (
-                  <span className="text-xs font-mono text-amber-400 font-bold ml-2">
+                  <span className="text-xs font-mono text-amber-400 font-bold ml-1">
                     {selectedLog.durationMs}ms
                   </span>
                 )}
@@ -321,6 +346,13 @@ export const TrafficInspector = React.memo<TrafficInspectorProps>(({
           </div>
         )}
       </div>
+
+      <TrafficAnalyticsDrawer
+        isOpen={isAnalyticsOpen}
+        onClose={() => setIsAnalyticsOpen(false)}
+        logs={logs}
+        onClearLogs={onClearLogs}
+      />
     </div>
   )
 })

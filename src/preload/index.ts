@@ -16,7 +16,11 @@ import {
   EnvironmentProfile,
   TestSuite,
   MockServerConfig,
-  UpdateInfoPayload
+  UpdateInfoPayload,
+  ClientSyncTarget,
+  ClientSyncTargetId,
+  ClientSyncDiff,
+  ClientSyncResult
 } from '../shared/types'
 
 const api = {
@@ -45,6 +49,12 @@ const api = {
       error?: string
     }> => ipcRenderer.invoke('mcp:read-resource', serverId, uri),
 
+    subscribeResource: (serverId: string, uri: string): Promise<{ success: boolean; error?: string }> =>
+      ipcRenderer.invoke('mcp:subscribe-resource', serverId, uri),
+
+    unsubscribeResource: (serverId: string, uri: string): Promise<{ success: boolean; error?: string }> =>
+      ipcRenderer.invoke('mcp:unsubscribe-resource', serverId, uri),
+
     getPrompt: (serverId: string, promptName: string, args?: Record<string, string>): Promise<{
       success: boolean
       messages?: any[]
@@ -56,6 +66,15 @@ const api = {
       source: string
       servers: Omit<McpServerConfig, 'id' | 'status' | 'createdAt'>[]
     }[]> => ipcRenderer.invoke('mcp:discover-servers'),
+
+    listSyncTargets: (): Promise<ClientSyncTarget[]> =>
+      ipcRenderer.invoke('mcp:list-sync-targets'),
+
+    previewClientConfigDiff: (targetId: ClientSyncTargetId, servers: McpServerConfig[]): Promise<ClientSyncDiff> =>
+      ipcRenderer.invoke('mcp:preview-client-config-diff', targetId, servers),
+
+    syncConfigToClient: (targetId: ClientSyncTargetId, servers: McpServerConfig[]): Promise<ClientSyncResult> =>
+      ipcRenderer.invoke('mcp:sync-config-to-client', targetId, servers),
 
     simulateAgent: (config: SimulationConfig, tools: McpTool[]): Promise<{
       success: boolean
@@ -91,6 +110,35 @@ const api = {
       ipcRenderer.on('mcp:server-status', handler)
       return () => {
         ipcRenderer.removeListener('mcp:server-status', handler)
+      }
+    },
+
+    onMetadataUpdated: (
+      callback: (data: {
+        serverId: string
+        metadata: { tools: McpTool[]; resources: McpResource[]; prompts: McpPrompt[] }
+      }) => void
+    ) => {
+      const handler = (_: any, data: any) => callback(data)
+      ipcRenderer.on('mcp:metadata-updated', handler)
+      return () => {
+        ipcRenderer.removeListener('mcp:metadata-updated', handler)
+      }
+    },
+
+    onResourceUpdated: (callback: (data: { serverId: string; uri: string }) => void) => {
+      const handler = (_: any, data: any) => callback(data)
+      ipcRenderer.on('mcp:resource-updated', handler)
+      return () => {
+        ipcRenderer.removeListener('mcp:resource-updated', handler)
+      }
+    },
+
+    onSamplingRequest: (callback: (data: { serverId: string; serverName: string; request: any }) => void) => {
+      const handler = (_: any, data: any) => callback(data)
+      ipcRenderer.on('mcp:sampling-request', handler)
+      return () => {
+        ipcRenderer.removeListener('mcp:sampling-request', handler)
       }
     }
   },

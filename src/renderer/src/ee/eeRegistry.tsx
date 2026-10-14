@@ -29,6 +29,8 @@ export const EeNotificationCenterModal: React.FC<any> = () => null
 export const EeAutoDiscoverModal: React.FC<any> = () => null
 export const EeExportModal: React.FC<any> = () => null
 export const EeAnalyticsDashboard: React.FC<any> = () => null
+export const EeConfigSyncModal: React.FC<any> = () => null
+export const EeContractTestRunnerModal: React.FC<any> = () => null
 
 export type NotificationType = 'info' | 'success' | 'warning' | 'error'
 export type NotificationCategory = 'system' | 'license' | 'updater' | 'servers' | 'processes' | 'settings'

@@ -2,6 +2,14 @@ import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
 import { SSEClientTransport } from '@modelcontextprotocol/sdk/client/sse.js'
 import {
+  ListRootsRequestSchema,
+  CreateMessageRequestSchema,
+  ToolListChangedNotificationSchema,
+  ResourceListChangedNotificationSchema,
+  PromptListChangedNotificationSchema,
+  ResourceUpdatedNotificationSchema
+} from '@modelcontextprotocol/sdk/types.js'
+import {
   McpServerConfig,
   McpTool,
   McpResource,
@@ -18,6 +26,43 @@ interface ServerInstance {
   client: Client
   transport: StdioClientTransport | SSEClientTransport
   cleanup?: () => void
+}
+
+function sanitizeJsonRpcPayload(payload: unknown): unknown {
+  if (payload === null || payload === undefined) return payload
+  if (typeof payload === 'string') {
+    return payload
+      .replace(/Bearer\s+[a-zA-Z0-9._-]{20,}/gi, 'Bearer ***[REDACTED]')
+      .replace(/sk-[a-zA-Z0-9_-]{20,}/gi, 'sk-***[REDACTED]')
+      .replace(/ghp_[a-zA-Z0-9]{20,}/gi, 'ghp_***[REDACTED]')
+  }
+  if (Array.isArray(payload)) {
+    return payload.map((item) => sanitizeJsonRpcPayload(item))
+  }
+  if (typeof payload === 'object') {
+    const sanitizedObj: Record<string, unknown> = {}
+    for (const [key, value] of Object.entries(payload as Record<string, unknown>)) {
+      const lowerKey = key.toLowerCase()
+      if (
+        lowerKey.includes('authorization') ||
+        lowerKey.includes('apikey') ||
+        lowerKey.includes('api_key') ||
+        lowerKey.includes('secret') ||
+        lowerKey.includes('password') ||
+        lowerKey.includes('token')
+      ) {
+        if (typeof value === 'string' && value.length > 0) {
+          sanitizedObj[key] = value.length > 8 ? `${value.slice(0, 4)}***[REDACTED]` : '***[REDACTED]'
+        } else {
+          sanitizedObj[key] = '***[REDACTED]'
+        }
+      } else {
+        sanitizedObj[key] = sanitizeJsonRpcPayload(value)
+      }
+    }
+    return sanitizedObj
+  }
+  return payload
 }
 
 export class McpClientManager {
@@ -77,12 +122,130 @@ export class McpClientManager {
       client = new Client(
         {
           name: 'mcp-studio',
-          version: '2.0.3'
+          version: '2.2.0'
         },
         {
-          capabilities: {}
+          capabilities: {
+            sampling: {},
+            roots: {
+              listChanged: true
+            }
+          }
         }
       )
+
+      // MCP Protocol: Workspace Roots Capability (roots/list)
+      client.setRequestHandler(ListRootsRequestSchema, async () => {
+        const rootUri = config.cwd
+          ? `file://${config.cwd.replace(/\\/g, '/')}`
+          : `file://${process.cwd().replace(/\\/g, '/')}`
+        const rootName = config.name || 'Workspace Root'
+        return {
+          roots: [
+            {
+              uri: rootUri,
+              name: rootName
+            }
+          ]
+        }
+      })
+
+      // MCP Protocol: Sampling Capability (sampling/createMessage)
+      client.setRequestHandler(CreateMessageRequestSchema, async (request) => {
+        this.logTraffic({
+          id: randomUUID(),
+          serverId: config.id,
+          serverName: config.name,
+          timestamp: Date.now(),
+          direction: 'incoming',
+          method: 'sampling/createMessage',
+          payload: request
+        })
+
+        if (this.mainWindow && !this.mainWindow.isDestroyed()) {
+          this.mainWindow.webContents.send('mcp:sampling-request', {
+            serverId: config.id,
+            serverName: config.name,
+            request
+          })
+        }
+
+        return {
+          model: 'mcp-studio-agent',
+          role: 'assistant',
+          content: {
+            type: 'text',
+            text: `[MCP Studio Engine] Handled sampling request for "${config.name}".`
+          }
+        }
+      })
+
+      // MCP Protocol: Dynamic Tool List Changed Notification
+      client.setNotificationHandler(ToolListChangedNotificationSchema, async () => {
+        this.logConsole({
+          id: 'con_' + randomUUID(),
+          serverId: config.id,
+          serverName: config.name,
+          stream: 'stdout',
+          message: `[MCP Protocol Event] tools/list_changed emitted by "${config.name}". Refreshing tool schema...`,
+          timestamp: Date.now()
+        })
+        if (client) {
+          const metadata = await this.fetchServerMetadata(client)
+          this.notifyServerMetadataUpdated(config.id, metadata)
+        }
+      })
+
+      // MCP Protocol: Dynamic Resource List Changed Notification
+      client.setNotificationHandler(ResourceListChangedNotificationSchema, async () => {
+        this.logConsole({
+          id: 'con_' + randomUUID(),
+          serverId: config.id,
+          serverName: config.name,
+          stream: 'stdout',
+          message: `[MCP Protocol Event] resources/list_changed emitted by "${config.name}". Refreshing resources...`,
+          timestamp: Date.now()
+        })
+        if (client) {
+          const metadata = await this.fetchServerMetadata(client)
+          this.notifyServerMetadataUpdated(config.id, metadata)
+        }
+      })
+
+      // MCP Protocol: Dynamic Prompt List Changed Notification
+      client.setNotificationHandler(PromptListChangedNotificationSchema, async () => {
+        this.logConsole({
+          id: 'con_' + randomUUID(),
+          serverId: config.id,
+          serverName: config.name,
+          stream: 'stdout',
+          message: `[MCP Protocol Event] prompts/list_changed emitted by "${config.name}". Refreshing prompt templates...`,
+          timestamp: Date.now()
+        })
+        if (client) {
+          const metadata = await this.fetchServerMetadata(client)
+          this.notifyServerMetadataUpdated(config.id, metadata)
+        }
+      })
+
+      // MCP Protocol: Resource Updated Notification
+      client.setNotificationHandler(ResourceUpdatedNotificationSchema, async (notification) => {
+        this.logTraffic({
+          id: randomUUID(),
+          serverId: config.id,
+          serverName: config.name,
+          timestamp: Date.now(),
+          direction: 'incoming',
+          method: 'notifications/resources/updated',
+          payload: notification
+        })
+        if (this.mainWindow && !this.mainWindow.isDestroyed()) {
+          this.mainWindow.webContents.send('mcp:resource-updated', {
+            serverId: config.id,
+            uri: notification.params.uri
+          })
+        }
+      })
 
       const { transport, cleanupStderr: cleanup } = this.createTransport(config, recentStderrLines)
       cleanupStderr = cleanup
@@ -353,6 +516,46 @@ export class McpClientManager {
     }
   }
 
+  public async subscribeResource(serverId: string, uri: string): Promise<{
+    success: boolean
+    error?: string
+  }> {
+    const instance = this.instances.get(serverId)
+    if (!instance) {
+      return { success: false, error: 'Server not connected' }
+    }
+
+    try {
+      await instance.client.subscribeResource({ uri })
+      return { success: true }
+    } catch (err: any) {
+      return {
+        success: false,
+        error: err.message || String(err)
+      }
+    }
+  }
+
+  public async unsubscribeResource(serverId: string, uri: string): Promise<{
+    success: boolean
+    error?: string
+  }> {
+    const instance = this.instances.get(serverId)
+    if (!instance) {
+      return { success: false, error: 'Server not connected' }
+    }
+
+    try {
+      await instance.client.unsubscribeResource({ uri })
+      return { success: true }
+    } catch (err: any) {
+      return {
+        success: false,
+        error: err.message || String(err)
+      }
+    }
+  }
+
   public async getPrompt(serverId: string, promptName: string, args?: Record<string, string>): Promise<{
     success: boolean
     messages?: any[]
@@ -589,9 +792,25 @@ export class McpClientManager {
     return { tools, resources, prompts }
   }
 
+  public notifyServerMetadataUpdated(
+    serverId: string,
+    metadata: { tools: McpTool[]; resources: McpResource[]; prompts: McpPrompt[] }
+  ): void {
+    if (this.mainWindow && !this.mainWindow.isDestroyed()) {
+      this.mainWindow.webContents.send('mcp:metadata-updated', {
+        serverId,
+        metadata
+      })
+    }
+  }
+
   private logTraffic(log: JsonRpcLog) {
     if (this.mainWindow && !this.mainWindow.isDestroyed()) {
-      this.mainWindow.webContents.send('mcp:traffic-log', log)
+      const sanitizedLog: JsonRpcLog = {
+        ...log,
+        payload: sanitizeJsonRpcPayload(log.payload)
+      }
+      this.mainWindow.webContents.send('mcp:traffic-log', sanitizedLog)
     }
   }
 

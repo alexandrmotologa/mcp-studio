@@ -18,7 +18,8 @@ import {
   Bookmark,
   Sparkles,
   RefreshCw,
-  Info
+  Info,
+  ShieldCheck
 } from 'lucide-react'
 import { LicenseStatus, EnvironmentProfile } from '../../../shared/types'
 import { isSoundEnabled, setSoundEnabled, playClickSound } from '../utils/soundEngine'
@@ -38,6 +39,8 @@ interface HeaderProps {
   onOpenNotifications?: () => void
   onOpenToolkit?: () => void
   onOpenOnboarding?: () => void
+  onOpenSyncModal?: () => void
+  onOpenContractTestModal?: () => void
   unreadNotificationsCount?: number
 }
 
@@ -56,6 +59,8 @@ export const Header: React.FC<HeaderProps> = React.memo(({
   onOpenNotifications,
   onOpenToolkit,
   onOpenOnboarding,
+  onOpenSyncModal,
+  onOpenContractTestModal,
   unreadNotificationsCount = 0
 }) => {
   const [soundOn, setSoundOn] = useState(isSoundEnabled())
@@ -223,8 +228,32 @@ export const Header: React.FC<HeaderProps> = React.memo(({
         </button>
       </nav>
 
-      {/* 3. Right: Clean Unified Action Deck (Just 4 Anchors) */}
+      {/* 3. Right: Clean Unified Action Deck */}
       <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+        {/* Anchor: 🔄 2-Way Config Sync */}
+        {onOpenSyncModal && (
+          <button
+            onClick={onOpenSyncModal}
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold text-slate-200 bg-studio-850 hover:bg-studio-800 border border-studio-border hover:border-indigo-500/50 transition-all shadow-sm cursor-pointer"
+            title="Sync MCP Servers to Host Clients (Claude, Cursor, Antigravity, Zed)"
+          >
+            <RefreshCw className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+            <span className="hidden md:inline">Sync</span>
+          </button>
+        )}
+
+        {/* Anchor: 🛡️ Contract Test Suite */}
+        {onOpenContractTestModal && (
+          <button
+            onClick={onOpenContractTestModal}
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold text-slate-200 bg-studio-850 hover:bg-studio-800 border border-studio-border hover:border-purple-500/50 transition-all shadow-sm cursor-pointer"
+            title="Automated MCP Contract & Regression Test Runner"
+          >
+            <ShieldCheck className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+            <span className="hidden lg:inline">Contracts</span>
+          </button>
+        )}
+
         {/* Anchor 1: 🧰 Developer Toolkit Hub */}
         {onOpenToolkit && (
           <button
@@ -340,6 +369,40 @@ export const Header: React.FC<HeaderProps> = React.memo(({
                   <kbd className="text-[10px] font-mono px-1 py-0.2 rounded bg-studio-950 border border-studio-border text-slate-400">
                     ?
                   </kbd>
+                </button>
+              )}
+
+              {/* Client Config Sync */}
+              {onOpenSyncModal && (
+                <button
+                  onClick={() => {
+                    setIsPreferencesOpen(false)
+                    onOpenSyncModal()
+                  }}
+                  className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-studio-800 text-xs text-slate-200 hover:text-white flex items-center justify-between transition-colors font-medium"
+                >
+                  <div className="flex items-center gap-2">
+                    <RefreshCw className="w-3.5 h-3.5 text-indigo-400" />
+                    <span>2-Way Client Config Sync</span>
+                  </div>
+                  <span className="text-[10px] text-indigo-400 font-mono">Sync</span>
+                </button>
+              )}
+
+              {/* Contract Test Suite */}
+              {onOpenContractTestModal && (
+                <button
+                  onClick={() => {
+                    setIsPreferencesOpen(false)
+                    onOpenContractTestModal()
+                  }}
+                  className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-studio-800 text-xs text-slate-200 hover:text-white flex items-center justify-between transition-colors font-medium"
+                >
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
+                    <span>Contract Test Runner</span>
+                  </div>
+                  <span className="text-[10px] text-purple-400 font-mono">Test</span>
                 </button>
               )}
 

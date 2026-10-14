@@ -15,7 +15,11 @@ import {
   EnvironmentProfile,
   TestSuite,
   MockServerConfig,
-  UpdateInfoPayload
+  UpdateInfoPayload,
+  ClientSyncTarget,
+  ClientSyncTargetId,
+  ClientSyncDiff,
+  ClientSyncResult
 } from '../shared/types'
 
 export interface IElectronAPI {
@@ -47,6 +51,8 @@ export interface IElectronAPI {
       contents?: McpResourceContent[]
       error?: string
     }>
+    subscribeResource: (serverId: string, uri: string) => Promise<{ success: boolean; error?: string }>
+    unsubscribeResource: (serverId: string, uri: string) => Promise<{ success: boolean; error?: string }>
     getPrompt: (
       serverId: string,
       promptName: string,
@@ -63,6 +69,15 @@ export interface IElectronAPI {
         servers: Omit<McpServerConfig, 'id' | 'status' | 'createdAt'>[]
       }[]
     >
+    listSyncTargets: () => Promise<ClientSyncTarget[]>
+    previewClientConfigDiff: (
+      targetId: ClientSyncTargetId,
+      servers: McpServerConfig[]
+    ) => Promise<ClientSyncDiff>
+    syncConfigToClient: (
+      targetId: ClientSyncTargetId,
+      servers: McpServerConfig[]
+    ) => Promise<ClientSyncResult>
     simulateAgent: (
       config: SimulationConfig,
       tools: McpTool[]
@@ -81,6 +96,14 @@ export interface IElectronAPI {
         metadata?: { tools: McpTool[]; resources: McpResource[]; prompts: McpPrompt[] }
       }) => void
     ) => () => void
+    onMetadataUpdated: (
+      callback: (data: {
+        serverId: string
+        metadata: { tools: McpTool[]; resources: McpResource[]; prompts: McpPrompt[] }
+      }) => void
+    ) => () => void
+    onResourceUpdated: (callback: (data: { serverId: string; uri: string }) => void) => () => void
+    onSamplingRequest: (callback: (data: { serverId: string; serverName: string; request: any }) => void) => () => void
   }
   storage: {
     getCollections: () => Promise<RequestCollection[]>
